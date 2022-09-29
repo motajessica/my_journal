@@ -1,4 +1,5 @@
 //jshint esversion:6
+
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -6,7 +7,7 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
-const encrypt = require("mongoose-encryption");
+
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -46,7 +47,7 @@ const userSchema = new mongoose.Schema ({
 //ToDo: Save this in an enviroment file: done!!//
 
 // const secret = "Littlesecret";
-userSchema.plugin(encrypt, {secret: process.env.SECRET, encryptFields: ["password"]});
+
 
 //  userSchema.setPassword("password");
 //  userSchema.save();
