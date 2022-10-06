@@ -27,32 +27,20 @@ app.use(express.static("public"));
 app.use(session({
   secret: "My Secret",
   resave: false,
-  saveUninitialized: false,
-  cookie: {maxAge:(3600000)}
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 //Finish Login Added//
 
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
-
 // mongoose.set("useCreateIndex", true);
-//Start Login added//
 
+//Start Login added//
 const userSchema = new mongoose.Schema ({
   email: String,
   password: String
 });
-
-//ToDo: Save this in an enviroment file: done!!//
-
-// const secret = "Littlesecret";
-
-
-//  userSchema.setPassword("password");
-//  userSchema.save();
-// const { userSchema } = await DefaultUser.authenticate()("userSchema", "password");
-
 
 userSchema.plugin(passportLocalMongoose);
 
@@ -60,11 +48,9 @@ const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializerUser());
+passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 //Finish Login Added//
-
 
 const postSchema = {
   name: String,
@@ -72,7 +58,6 @@ const postSchema = {
   content: String
 };
 const Post = mongoose.model("Post", postSchema);
-
 
 app.get("/", async function(req, res){
   //added for Login//
@@ -83,39 +68,27 @@ app.get("/", async function(req, res){
     posts: await Post.find()
     });
   //added for login//
-  } else {
-  redirect("login");
-    }
+  } 
+  // else {
+  // redirect("login");
+  //   }
   //aded for login//
 });
 
 //Start Login//
-
 app.get("/login", function(req, res){
   res.render("login");
-})
-
+});
 app.get ("/register", function(req, res){
   res.render("register");
-})
-
-app.post("/register", function(req, res){
-
-  // const newUser = new User ({
-  // email:req.body.username,
-  // password:req.body.password,
-  //});
-  //
-  // newUser.sabe(function(err){
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.render("home");
-  //   };
-  // });
-
 });
 
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/login")
+});
+
+app.post("/register", function(req, res){
   User.register({username: req.body.username}, req.body.password, function(err, user){
     if (err) {
       console.log(err);
@@ -126,28 +99,12 @@ app.post("/register", function(req, res){
       });
     };
   });
-
+});
 app.post("/login", function(req, res){
-
-  const user = new User ({
+  const user = new User({
     username: req.body.username,
     password: req.body.password
   });
-
-//User findOne({email: username}, function(err, foundUser){
-  //if (err) {
-    //console.log(err);
-//} else {
-// } if (foundUser){
-//     if (foundUser.password === password){
-//       res.render("home");
-
-//     }
-//   }
-// }
-//});
-
-
   req.login(user, function(err){
     if (err) {
       console.log(err);
@@ -155,12 +112,10 @@ app.post("/login", function(req, res){
       passport.authenticate("local")(req, res, function(){
       res.redirect("/");
     });
-    }
+    };
   });
 });
 //Finish Login//
-
-
 
 app.get("/compose", function(req, res){
   Post.find({}, function(err, posts){
@@ -171,7 +126,6 @@ app.get("/compose", function(req, res){
  });
   res.render("compose");
 });
-
 app.post("/compose", function(req, res){
   console.log(req.body)
     const post = new Post ({
@@ -184,7 +138,6 @@ app.post("/compose", function(req, res){
      }
    });
 });
-
 app.get("/posts/:postId", function(req, res){
   const requestedPostId = req.params.postId;
   Post.findOne({_id:requestedPostId}, function(err, post){
@@ -195,15 +148,12 @@ app.get("/posts/:postId", function(req, res){
       });
   });
 });
-
 app.get("/about", function(req, res){
   res.render("about", {aboutContent: aboutContent});
 });
-
 app.get("/contact", function(req, res){
   res.render("contact", {contactContent: contactContent});
 });
-
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
