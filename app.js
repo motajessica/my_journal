@@ -21,7 +21,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-//Start Login added//
 app.use(session({
   secret: "My Secret",
   resave: false,
@@ -29,12 +28,9 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-//Finish Login Added//
 
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
-// mongoose.set("useCreateIndex", true);
 
-//Start Login added//
 const userSchema = new mongoose.Schema ({
   email: String,
   password: String
@@ -48,7 +44,7 @@ passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-//Finish Login Added//
+
 
 const postSchema = {
   name: String,
@@ -57,34 +53,38 @@ const postSchema = {
 };
 const Post = mongoose.model("Post", postSchema);
 
+// Home
 app.get("/", async function(req, res){
-  //added for Login//
+  debugger
   if (req.isAuthenticated()){
-  //Added for login//
-  res.render("home", {
-    startingContent: homeStartingContent,
-    posts: await Post.find()
+    res.render("home",{
+      startingContent: homeStartingContent,
+      posts: await Post.find(),
+      isAuthenticated: req.isAuthenticated()
     });
-  //added for login//
-  } 
-  // else {
-  // redirect("login");
-  //   }
-  //aded for login//
+  } else {
+    res.redirect("welcome");
+  };
+  
 });
 
-//Start Login//
+app.get("/welcome", function(req, res){
+  res.render("welcome", { isAuthenticated: req.isAuthenticated()}); 
+});
+ 
 app.get("/login", function(req, res){
-  res.render("login");
-});
+  res.render("login", { isAuthenticated: req.isAuthenticated()});
 
+});
 app.get ("/register", function(req, res){
-  res.render("register");
+  res.render("register", { isAuthenticated: req.isAuthenticated()});
 });
 
 app.get("/logout", function(req, res){
-  req.logout();
-  res.redirect("/login")
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
 });
 
 app.post("/register", function(req, res){
@@ -99,6 +99,7 @@ app.post("/register", function(req, res){
     };
   });
 });
+
 app.post("/login", function(req, res){
   const user = new User({
     username: req.body.username,
@@ -108,6 +109,7 @@ app.post("/login", function(req, res){
   req.login(user, function(err){
     if (err) {
       console.log(err);
+      res.redirect("/login");
     } else {
       passport.authenticate("local")(req, res, function(){
       res.redirect("/");
@@ -115,16 +117,17 @@ app.post("/login", function(req, res){
     };
   });
 });
-//Finish Login//
+
 
 app.get("/compose", function(req, res){
   Post.find({}, function(err, posts){
    res.render("home", {
      startingContent: homeStartingContent,
-     posts: posts
+     posts: posts,
+     isAuthenticated: req.isAuthenticated()
      });
  });
-  res.render("compose");
+  res.render("compose", { isAuthenticated: req.isAuthenticated()});
 });
 app.post("/compose", function(req, res){
   console.log(req.body)
@@ -149,10 +152,17 @@ app.get("/posts/:postId", function(req, res){
   });
 });
 app.get("/about", function(req, res){
-  res.render("about", {aboutContent: aboutContent});
+  res.render("about", {
+    aboutContent: aboutContent, 
+    isAuthenticated: req.isAuthenticated()
+  });
 });
+
 app.get("/contact", function(req, res){
-  res.render("contact", {contactContent: contactContent});
+  res.render("contact", {
+    contactContent: contactContent,
+    isAuthenticated: req.isAuthenticated()
+  });
 });
 app.listen(3000, function() {
   console.log("Server started on port 3000");
