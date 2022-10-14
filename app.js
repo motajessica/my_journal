@@ -15,6 +15,7 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -75,21 +76,22 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
-
+// Passport Facebook - Config Strategy
 const postSchema = {
   name: String,
   title: String,
-  content: String
+  content: String,
+  userId: String
 };
 const Post = mongoose.model("Post", postSchema);
 
 // Home
 app.get("/", async function(req, res){
-  debugger
   if (req.isAuthenticated()){
+    const posts = await Post.find({userId: req.user.id})
     res.render("home",{
       startingContent: homeStartingContent,
-      posts: await Post.find(),
+      posts: posts,
       isAuthenticated: req.isAuthenticated()
     });
   } else {
@@ -171,17 +173,23 @@ app.get("/compose", function(req, res){
  });
   res.render("compose", { isAuthenticated: req.isAuthenticated()});
 });
+
 app.post("/compose", function(req, res){
-  console.log(req.body)
+  if(req.isUnauthenticated()) {
+    res.redirect("/welcome")
+  } else {
+    console.log(req.body)
     const post = new Post ({
       title: req.body.postTitle,
-      content: req.body.postBody
+      content: req.body.postBody,
+      userId: req.user.id
     });
-  post.save(function(err){
-     if (!err){
-       res.redirect("/");
-     }
-   });
+    post.save(function(err){
+       if (!err){
+         res.redirect("/");
+       }
+     });
+  }
 });
 app.get("/posts/:postId", function(req, res){
   const requestedPostId = req.params.postId;

@@ -1,12 +1,41 @@
+
 html {
   min-height: 100%;
   position: relative;
 }
 
-.container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
+
+h1,h2,h3,h4,p { 
+  font-family: 'Montserrat', sans-serif;
+  color:#777777;
 }
+
+
+
+label {
+  font-family: Montserrat-light, sans-serif;
+  font-size: 15x;
+  color: #777777;
+}
+
+
+
+
+.colored-section{
+  background-color: #FFBCBC;
+  color: #fff;
+7
+}
+
+.white-section{
+  background-color: white;
+  color:FFBCBC ;
+
+} 
+
+
+/* NAVGATION BAR */ 
+
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -14,11 +43,87 @@ html {
     border-radius: 0;
     margin-bottom: 0;
     font-size: 12px;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
 }
 .navbar-nav  li a:hover {
     color: #FFBCBC !important;
 }
+
+
+.navbar{
+  padding-bottom: 1.0rem;
+}
+
+.navbar-brand{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.5rem;
+  padding-left: 0%;
+ 
+}
+
+.nav-item{
+  padding: 0 15px;
+
+}
+
+.nav-link{
+  font-size: 0.8rem;
+  font-family:'Montserrat', sans-serif; ;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  
+}
+
+/*FEATURES*/
+
+#features{
+  padding: 7% 15%;
+  position:relative;
+  z-index: 1;
+}
+.feature-title{
+  font-family: 'Montserrat-bold', sans-serif;
+  font-weight: 350;  
+  font-size: 23px;
+
+}
+
+.feature-box{
+  padding: 5%;
+  text-align: center;
+}
+
+.img-item{
+color: white ;
+}
+
+
+
+/* TESTIMONIALS */
+
+.testimonial-img{
+  width: 12%;
+  border-radius: 10%;
+  margin: 0.25em;
+  
+}
+
+.testimonial-text{
+  font-size: 1.5rem;
+  line-height: 1.0;
+  color:#707377 ;
+  text-align: center;
+  font-weight: 100;
+}
+
+.carousel-item{
+  padding: 7% 15%;
+}
+
+
+
+
+/* FOOTER */ 
 
 .footer-padding {
 	padding-bottom: 60px;
@@ -29,12 +134,48 @@ html {
 	text-align: center;
 	bottom: 0;
 	width: 100%;
-	height: 60px;
+	height: 70px;
 	background-color: #FFBCBC;
+  color: white;
 }
 
-.footer p {
-	margin-top: 25px;
-	font-size: 12px;
-  color: #fff;
+.foot{
+  padding: 5px 10px;
+  margin-top: 5px;
 }
+
+.foot:hover{
+  transform: scale(1.3)
+}
+
+
+/* Title Section */
+#title{
+  text-align: left;
+}
+
+
+/* titles heading */
+
+.titles {
+  font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    text-align:center;
+    line-height: 1.5;
+    color: #FFBCBC;
+    font-weight: lighter;
+    margin-bottom: 40px;
+    
+}
+
+.social-block {
+  margin-top: 40px;
+}
+
+.btn-app {
+  margin-top: 1rem;
+  background-color: #FFBCBC;
+  color: white;
+}
+
+
