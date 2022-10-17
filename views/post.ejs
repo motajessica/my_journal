@@ -1,6 +1,13 @@
 <%- include("partials/header"); -%>
-
-  <h1><%=title%></h1>
+<div class="my-5 container">
+  <h1 ><%=title%></h1>
   <p><%=content%></p>
-
+</div>
+<form class="container" action="/posts/<%= postId %>" method="post">
+  <button value="delete" confirm="Are you sure?" class="btn btn-sm btn-danger" type="submit"> Delete</button>
+</form>
+<div class="container">
+  <i class="fa-pen-to-square"></i>
+  <a href="/posts/<%= postId %>/edit">Edit</a>
+</div>
 <%- include("partials/footer"); -%>
