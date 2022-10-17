@@ -7,7 +7,7 @@
             <h3><%=post.title%></h3>
             <p>
                 <%=post.content.substring(0,100) + " ...   " %>
-                    <a href="/posts/<%=post._id%>">Read More</a>
+                    <a class="readmore" href="/posts/<%=post._id%>">Read More</a>
             </p>
         <% }) %>
     </div>

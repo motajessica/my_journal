@@ -1,13 +1,34 @@
 <%- include("partials/header"); -%>
-<div class="my-5 container">
-  <h1 ><%=title%></h1>
-  <p><%=content%></p>
+
+<div class="mt-2 mb-5 container">
+  <div class="row d-lg-none mb-5">
+    <div class="col d-flex justify-content-start">
+        <a class="" href="/">< Back to Home Page</a>
+    </div>
+  </div> 
+  <div class="row">
+    <div class="col">
+      <h1 ><%=title%></h1>
+      <p ><%=content%></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class=" gap-2 d-flex">
+        <form action="/posts/<%= postId %>" method="post">
+          <button value="delete" confirm="Are you sure?" class="btn btn-sm btn-danger " type="submit"> 
+            <i class="fa-solid fa-trash"></i> Delete 
+          </button>
+        </form>
+        <div class="">
+          <a class="btn btn-secondary btn-sm" href="/posts/<%= postId %>/edit">
+            <i class="fa-solid fa-pen-to-square"></i>
+            Edit
+          </a>
+        </div>
+      </div>
+  </div>
+  </div>
 </div>
-<form class="container" action="/posts/<%= postId %>" method="post">
-  <button value="delete" confirm="Are you sure?" class="btn btn-sm btn-danger" type="submit"> Delete</button>
-</form>
-<div class="container">
-  <i class="fa-pen-to-square"></i>
-  <a href="/posts/<%= postId %>/edit">Edit</a>
-</div>
+
 <%- include("partials/footer"); -%>
