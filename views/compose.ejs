@@ -1,9 +1,19 @@
 
 <%- include("partials/header"); -%>
-  
-  <h1 class="titles">Compose</h1>
-  <div class="mt-5"></div> 
-  <form class="compose container" action="/compose" method="post">
-    <%- include("partials/formFields"); -%>
-  </form>
+  <div class="mt-2 mb-5 container">
+    <div class="row">
+      <div class="col ">
+        <h1 class="titles">Compose</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form class="compose " action="/compose" method="post">
+          <%- include("partials/formFields"); -%>
+        </form>
+      </div>
+    </div>
+  </div>
 <%- include("partials/footer"); -%>
+
+

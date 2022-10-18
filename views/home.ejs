@@ -1,23 +1,22 @@
 
 <%- include("partials/header"); -%>
-<div class="mt-5 mb-5">
-    <h1 class="titles">Home</h1>
-    <div class="container"> 
-        <% posts.forEach(function(post){ %>
-            <h3><%=post.title%></h3>
-            <p>
-                <%=post.content.substring(0,100) + " ...   " %>
-                    <a class="readmore" href="/posts/<%=post._id%>">Read More</a>
-            </p>
-        <% }) %>
+<div class="mt-2 mb-5 container">
+    <div class="row">
+        <div class="col">
+            <h1 class="titles">Home</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div col="col">
+            <% posts.forEach(function(post){ %>
+                <h3><%=post.title%></h3>
+                <p>
+                    <%=post.content.substring(0,100) + " ...   " %>
+                        <a class="links" href="/posts/<%=post._id%>">Read More</a>
+                </p>
+            <% }) %>
+        </div> 
     </div>
 </div>
         
 <%- include("partials/footer"); -%>
-
-
-<!-- 
-post.content.substring(0,100) + " ...   " 
- if (post.content.length > 80) { 
-<a href="/posts/< =post._id%>">Read More</a>
- } -->
