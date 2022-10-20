@@ -77,7 +77,9 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
-
+//==================================//
+// POSTS//
+//==================================//
 const postSchema = mongoose.Schema({
   title: String,
   content: String,
@@ -85,10 +87,13 @@ const postSchema = mongoose.Schema({
 }, {timestamps: true});
 const Post = mongoose.model("Post", postSchema);
 
-// Home
+// INDEX
 app.get("/", async function(req, res){
   if (req.isAuthenticated()){
-    const posts = await Post.find({userId: req.user.id})
+    let posts = await Post.find({userId: req.user.id})
+    posts.forEach(function(post){
+      post.title = _.capitalize(post.title)
+    })
     res.render("home",{
       posts: posts.reverse(),
       isAuthenticated: req.isAuthenticated(),
@@ -103,16 +108,148 @@ app.get("/welcome", function(req, res){
   res.render("welcome", { isAuthenticated: req.isAuthenticated()}); 
 });
 
+// NEW
+app.get("/compose", function(req, res){ 
+  if(req.isUnauthenticated()) {
+    res.redirect("/welcome")
+  } else {
+    res.render("compose", { 
+      isAuthenticated: req.isAuthenticated(),
+      postTitle: null,
+      postBody: null,
+      postId: null
+    });
+  }
+  
+});
+
+// CREATE
+app.post("/compose", function(req, res){
+  if(req.isUnauthenticated()) {
+    res.redirect("/welcome")
+  } else {
+    console.log(req.body)
+    const post = new Post ({
+      title: req.body.postTitle,
+      content: req.body.postBody,
+      userId: req.user.id
+    });
+    post.save(function(err){
+       if (!err){
+         res.redirect("/");
+       }
+     });
+  };
+});
+
+//  UPDATE
+app.post("/posts/:postId/update", function(req, res){
+
+  if(req.isUnauthenticated()) {
+    res.redirect("/welcome")
+  } else {
+    const filter = {_id: req.body.postId};
+    const update = {title: req.body.postTitle, content: req.body.postBody}
+    Post.findOneAndUpdate(filter, update, function(err, post){
+      console.log(post);
+      if (err){
+        res.render("edit");
+      } else {
+        res.redirect(`/posts/${post._id}`);
+      }
+    });
+  };
+});
+
+// SHOW
+app.get("/posts/:postId", function(req, res){
+  if (req.isAuthenticated()){
+    const requestedPostId = req.params.postId;
+    Post.findOne({_id:requestedPostId}, function(err, post){
+      console.log(post);
+        res.render("post", {
+          title: _.capitalize(post.title),
+          content: post.content,
+          isAuthenticated: req.isAuthenticated(),
+          postId: post.id,
+          updatedAt: post.updatedAt,
+        });
+    });
+  } else {
+    res.redirect("/welcome");
+  };
+});
+
+//  DELETE
+app.post("/posts/:postId", function(req, res){
+  if (req.isAuthenticated()){
+    const requestedPostId = req.params.postId;
+    Post.findByIdAndRemove({_id:requestedPostId}, function(err, post){
+      if(!!err) {
+        res.render("post", {
+          title: post.title,
+          content: post.content,
+          isAuthenticated: req.isAuthenticated()
+        });
+      } else { 
+       return res.redirect("/")
+      }
+    });
+  } else {
+    res.redirect("/welcome");
+  };
+});
+
+// EDIT 
+app.get("/posts/:postId/edit", function(req, res){
+  if (req.isAuthenticated()){
+    const requestedPostId = req.params.postId;
+    Post.findOne({_id:requestedPostId}, function(err, post){
+      console.log(post);
+        res.render("edit", {
+          postTitle: post.title,
+          postBody: post.content,
+          isAuthenticated: req.isAuthenticated(),
+          postId: post.id
+        });
+    });
+  } else {
+    res.redirect("/welcome");
+  };
+});
+
+app.get("/about", function(req, res){
+  res.render("about", {
+    aboutContent: aboutContent, 
+    isAuthenticated: req.isAuthenticated()
+  });
+});
+
+app.get("/contact", function(req, res){
+  res.render("contact", {
+    contactContent: contactContent,
+    isAuthenticated: req.isAuthenticated()
+  });
+});
+
+//==================================//
+// END OF POSTS//
+//==================================//
+
+
+//==================================//
+// LOGIN//
+//==================================//
 app.get("/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
-  );
-  app.get("/auth/google/myjournal", 
-  passport.authenticate("google", { failureRedirect: "/welcome" }),
+);
+
+app.get("/auth/google/myjournal", passport.authenticate("google", { failureRedirect: "/welcome" }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect("/");
-  });
-
+  }
+);
 
 app.get("/login", function(req, res){
   res.render("login", { isAuthenticated: req.isAuthenticated()});
@@ -159,143 +296,15 @@ app.post("/login", function(req, res){
     };
   });
 });
-
-// Compose
-app.get("/compose", function(req, res){ 
-  if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
-  } else {
-    res.render("compose", { 
-      isAuthenticated: req.isAuthenticated(),
-      postTitle: null,
-      postBody: null,
-      postId: null
-    });
-  }
-  
-});
-
-
-app.post("/compose", function(req, res){
-  if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
-  } else {
-    console.log(req.body)
-    const post = new Post ({
-      title: req.body.postTitle,
-      content: req.body.postBody,
-      userId: req.user.id
-    });
-    post.save(function(err){
-       if (!err){
-         res.redirect("/");
-       }
-     });
-  };
-});
-
-//  UPDATE
-
-app.post("/posts/:postId/update", function(req, res){
-
-  if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
-  } else {
-    const filter = {_id: req.body.postId};
-    const update = {title: req.body.postTitle, content: req.body.postBody}
-    Post.findOneAndUpdate(filter, update, function(err, post){
-      console.log(post);
-      if (err){
-        res.render("edit");
-      } else {
-        res.redirect(`/posts/${post._id}`);
-      }
-    });
-  };
-});
-
-//show post
-app.get("/posts/:postId", function(req, res){
-  if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
-    Post.findOne({_id:requestedPostId}, function(err, post){
-      console.log(post);
-        res.render("post", {
-          title: post.title,
-          content: post.content,
-          isAuthenticated: req.isAuthenticated(),
-          postId: post.id,
-          updatedAt: post.updatedAt,
-          createdAt: post.createdAt
-      
-        });
-    });
-  } else {
-    res.redirect("/welcome");
-  };
-});
-
-//  DELETE
-app.post("/posts/:postId", function(req, res){
-  if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
-    Post.findByIdAndRemove({_id:requestedPostId}, function(err, post){
-      if(!!err) {
-        res.render("post", {
-          title: post.title,
-          content: post.content,
-          isAuthenticated: req.isAuthenticated()
-        });
-      } else { 
-       return res.redirect("/")
-      }
-    });
-  } else {
-    res.redirect("/welcome");
-  };
-});
-
-// Edit Post 
-app.get("/posts/:postId/edit", function(req, res){
-  if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
-    Post.findOne({_id:requestedPostId}, function(err, post){
-      console.log(post);
-        res.render("edit", {
-          postTitle: post.title,
-          postBody: post.content,
-          isAuthenticated: req.isAuthenticated(),
-          postId: post.id
-        });
-    });
-  } else {
-    res.redirect("/welcome");
-  };
-});
-
-app.get("/about", function(req, res){
-  res.render("about", {
-    aboutContent: aboutContent, 
-    isAuthenticated: req.isAuthenticated()
-  });
-});
-
-app.get("/contact", function(req, res){
-  res.render("contact", {
-    contactContent: contactContent,
-    isAuthenticated: req.isAuthenticated()
-  });
-});
+//==================================//
+// END OF LOGIN//
+//==================================//
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
 
-
-
-
 // FUNCTIONS TO GO INTO A HELPER MODULE
-
 function getDate() {
   let today = new Date();
   let options = {
