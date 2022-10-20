@@ -8,7 +8,13 @@
   </div> 
   <div class="row">
     <div class="col">
-      <h1 ><%=title%></h1>
+      <h1 ><%=title%> </h1>
+      <p class="lastSeen">Last edited <%=new Date(updatedAt).toLocaleDateString("en-US", {
+        weekday: "long",
+        day: "numeric",
+        month: "long", 
+        time:"numeric"
+      })%></p>
       <p ><%=content%></p>
     </div>
   </div>
@@ -28,7 +34,6 @@
         </div>
       </div>
   </div>
-  </div>
-</div>
+</div>  
 
 <%- include("partials/footer"); -%>

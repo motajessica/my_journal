@@ -188,3 +188,9 @@ color: white ;
   text-decoration: none;
 }
 
+
+.lastSeen {
+  font-size: 13px ;
+  color: #9ea3a5a6;
+  font-weight: 500;
+}

@@ -77,13 +77,12 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
-// Passport Facebook - Config Strategy
-const postSchema = {
-  name: String,
+
+const postSchema = mongoose.Schema({
   title: String,
   content: String,
   userId: String
-};
+}, {timestamps: true});
 const Post = mongoose.model("Post", postSchema);
 
 // Home
@@ -92,7 +91,8 @@ app.get("/", async function(req, res){
     const posts = await Post.find({userId: req.user.id})
     res.render("home",{
       posts: posts.reverse(),
-      isAuthenticated: req.isAuthenticated()
+      isAuthenticated: req.isAuthenticated(),
+      today: getDate(),
     });
   } else {
     res.redirect("welcome");
@@ -195,6 +195,7 @@ app.post("/compose", function(req, res){
 });
 
 //  UPDATE
+
 app.post("/posts/:postId/update", function(req, res){
 
   if(req.isUnauthenticated()) {
@@ -223,7 +224,10 @@ app.get("/posts/:postId", function(req, res){
           title: post.title,
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
-          postId: post.id
+          postId: post.id,
+          updatedAt: post.updatedAt,
+          createdAt: post.createdAt
+      
         });
     });
   } else {
@@ -269,8 +273,6 @@ app.get("/posts/:postId/edit", function(req, res){
   };
 });
 
-
-
 app.get("/about", function(req, res){
   res.render("about", {
     aboutContent: aboutContent, 
@@ -284,6 +286,26 @@ app.get("/contact", function(req, res){
     isAuthenticated: req.isAuthenticated()
   });
 });
+
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
+
+
+
+
+// FUNCTIONS TO GO INTO A HELPER MODULE
+
+function getDate() {
+  let today = new Date();
+  let options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  };
+  return(today.toLocaleDateString("en-US", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  }));
+}
