@@ -1,6 +1,11 @@
 <%- include("partials/header"); -%>
 
 <div class="mt-2 mb-5 container">
+    <div class="row d-lg-none mb-2">
+        <div class="col d-flex justify-content-start">
+            <a class="link" href="/compose">+ Compose</a>
+        </div>
+      </div> 
     <div class="row">
         <div class="col">
             <h1 class="titles">Home</h1>
@@ -18,11 +23,13 @@
                         year: "numeric"
                       })%></p>
             </div>
-            <p class="mb-5">
-                <%=post.content.substring(0,100) + " ...   " %>
-                    <a class="link" href="/posts/<%=post._id%>">Read more</a>
+            <div>
+                <p class="mb-5">
+                    <%=post.content.substring(0,100) + " ...   " %>
+                        <a class="link" href="/posts/<%=post._id%>">Read more</a>
             </p>
             <% }) %>
+            </div>
         </div> 
     </div>
 </div>
