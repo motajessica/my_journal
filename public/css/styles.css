@@ -4,9 +4,9 @@ html {
   position: relative;
 }
 
-h1,h2,h3,h4,p { 
+h1,h2,h3,h4 { 
   font-family: 'Montserrat', sans-serif;
-  color:#777777;
+  color: white;
 }
 
 label {
@@ -16,14 +16,9 @@ label {
 }
 
 .colored-section{
-  background-color: #FFBCBC;
+  background-color: #9A1663;
   color: #fff;
 }
-
-.white-section{
-  background-color: white;
-  color:FFBCBC ;
-} 
 
 /* NAVGATION BAR */ 
 .navbar {
@@ -36,7 +31,7 @@ label {
     letter-spacing: 3px;
 }
 .navbar-nav  li a:hover {
-    color: #FFBCBC !important;
+    color: #FF97C1 !important;
 }
 
 .navbar{
@@ -73,7 +68,7 @@ label {
 }
 
 .feature-box{
-  padding: 2%;
+  padding: 7%;
   text-align: center;
 }
 
@@ -98,21 +93,22 @@ color: white ;
 
 .carousel-item{
   padding: 7% 15%;
+  margin-bottom: 7%;
+  background-color: #EDEDED;
 }
 
 /* FOOTER */ 
 .footer-padding {
-	padding-bottom: 60px;
+	padding-bottom: 200px;
 }
 
 .footer {
 	position: absolute;
-	text-align: center;
 	bottom: 0;
-	width: 100%;
-	height: 70px;
-	background-color: #FFBCBC;
+	background-color: #9A1663;
   color: white;
+  font-size: 15px;
+  font-family:"Ubuntu" ;
 }
 
 .foot{
@@ -132,13 +128,14 @@ color: white ;
 
 /* titles heading */
 .titles {
-  font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    text-align:center;
-    line-height: 1.5;
-    color: #FFBCBC;
-    font-weight: lighter;
-    margin-bottom: 40px; 
+  font-family: 'Ubuntu';
+  text-decoration: underline;
+  font-size: 1.5rem;
+  text-align:center;
+  line-height: 1.5;
+  color: #9A1663;
+  font-weight: lighter;
+  margin-bottom: 40px;
 }
 
 .social-block {
@@ -147,7 +144,7 @@ color: white ;
 
 .btn-app {
   margin-top: 1rem;
-  background-color: #FFBCBC;
+  background-color: #9A1663;
   color: white;
 }
 
@@ -182,3 +179,7 @@ color: white ;
   text-align: center;
   font-family:'Montserrat', sans-serif;
 }
+
+/* .card {
+  background-color: #EDEDED;
+} */
