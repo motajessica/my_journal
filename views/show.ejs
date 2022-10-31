@@ -8,26 +8,21 @@
   </div> 
   <div class="row">
     <div class="col">
-      <h1>  <%=title%> </h1>
-      <p class="lastSeen">Last edited: <%=new Date(updatedAt).toLocaleDateString("en-US", {
-        weekday: "long",
-        day: "numeric",
-        month: "long", 
-        time:"numeric"
-      })%></p>
-      <p ><%=content%></p>
+      <h1><%= post.title %></h1>
+      <p class="lastSeen">Last edited on <%= post.updatedAt %></p>
+      <p ><%= post.content %></p>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <div class=" gap-2 d-flex">
-        <form action="/posts/<%= postId %>" method="post">
+        <form action="/posts/<%= post.id %>" method="post">
           <button value="delete" confirm="Are you sure?" class="btn btn-sm btn-danger " type="submit"> 
             <i class="fa-solid fa-trash"></i> Delete 
           </button>
         </form>
         <div class="">
-          <a class="btn btn-secondary btn-sm" href="/posts/<%= postId %>/edit">
+          <a class="btn btn-secondary btn-sm" href="/posts/<%= post.id %>/edit">
             <i class="fa-solid fa-pen-to-square"></i>
             Edit
           </a>

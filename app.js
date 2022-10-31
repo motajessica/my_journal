@@ -3,19 +3,18 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
+require("ejs");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
+const { humanizeDateTime } = require('./helpers/dateTimeHelper.js')
 
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-const { render } = require("express/lib/response");
-
 
 const app = express();
 
@@ -89,11 +88,10 @@ const Post = mongoose.model("Post", postSchema);
 app.get("/", async function(req, res){
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
-    posts.forEach(function(post){
-      post.title = _.capitalize(post.title)
-    })
-    res.render("home",{
+    res.render("index",{
       posts: posts.reverse(),
+      humanizeDateTime: humanizeDateTime,
+      lodash: _,
       isAuthenticated: req.isAuthenticated(),
       today: getDate(),
     });
@@ -103,7 +101,7 @@ app.get("/", async function(req, res){
 });
 
 app.get("/welcome", function(req, res){
-  res.render("welcome", { isAuthenticated: req.isAuthenticated()}); 
+  res.render("welcome", { isAuthenticated: req.isAuthenticated()});
 });
 
 // NEW
@@ -118,7 +116,7 @@ app.get("/new", function(req, res){
       postId: null,
     });
   }
-  
+
 });
 
 // CREATE
@@ -164,14 +162,13 @@ app.get("/posts/:postId", function(req, res){
   if (req.isAuthenticated()){
     const requestedPostId = req.params.postId;
     Post.findOne({_id:requestedPostId}, function(err, post){
-      console.log(post);
-        res.render("post", {
-          title: _.capitalize(post.title),
-          content: post.content,
-          isAuthenticated: req.isAuthenticated(),
-          postId: post.id,
-          updatedAt: post.updatedAt,
-        });
+      post.title = _.capitalize(post.title)
+      post.updatedAt = humanizeDateTime(post.updatedAt)
+      post.createdAt = humanizeDateTime(post.createdAt)
+      res.render("show", {
+        post: post,
+        isAuthenticated: req.isAuthenticated(),
+      });
     });
   } else {
     res.redirect("/welcome");
@@ -189,7 +186,7 @@ app.post("/posts/:postId", function(req, res){
           content: post.content,
           isAuthenticated: req.isAuthenticated()
         });
-      } else { 
+      } else {
        return res.redirect("/")
       }
     });
@@ -198,7 +195,7 @@ app.post("/posts/:postId", function(req, res){
   };
 });
 
-// EDIT 
+// EDIT
 app.get("/posts/:postId/edit", function(req, res){
   if (req.isAuthenticated()){
     const requestedPostId = req.params.postId;
@@ -218,7 +215,7 @@ app.get("/posts/:postId/edit", function(req, res){
 
 app.get("/about", function(req, res){
   res.render("about", {
-    aboutContent: aboutContent, 
+    aboutContent: aboutContent,
     isAuthenticated: req.isAuthenticated()
   });
 });
@@ -251,8 +248,8 @@ app.get("/auth/google/myjournal", passport.authenticate("google", { failureRedir
 
 app.get("/login", function(req, res){
   res.render("login", { isAuthenticated: req.isAuthenticated()});
-
 });
+
 app.get ("/register", function(req, res){
   res.render("register", { isAuthenticated: req.isAuthenticated()});
 });
