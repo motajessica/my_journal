@@ -107,22 +107,22 @@ app.get("/welcome", function(req, res){
 });
 
 // NEW
-app.get("/compose", function(req, res){ 
+app.get("/new", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
-    res.render("compose", { 
+    res.render("new", {
       isAuthenticated: req.isAuthenticated(),
       postTitle: null,
       postBody: null,
-      postId: null
+      postId: null,
     });
   }
   
 });
 
 // CREATE
-app.post("/compose", function(req, res){
+app.post("/create", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {

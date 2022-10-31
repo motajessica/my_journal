@@ -5,19 +5,18 @@
         <div class="col d-flex justify-content-start">
             <a class="link" href="/compose">+ Compose</a>
         </div>
-      </div> 
-    <div class="row">
-        <div class="col">
-            <h1 class="titles">Home</h1>
-        </div>
-    </div>
+      </div>
     <% if (posts.length === 0){ %>
-        <div class="row">
-            <div class="col empty-home justify-content-center" >
-                <i class="fa-solid fa-empty-set"></i>
-                Your journal is empty. Add your daily notes <a class="link empty-home-link" href="/compose">here +</a> 
+        <div class="row mt-5">
+            <div class="col mt-lg-5">
+                <h1 class="h1 text-center">
+                    <p>Your journal is blank</p>
+                    <a href="/compose">
+                        <div>Add your first note</div>
+                    </a>
+                </h1>
             </div>
-        </div>  
+        </div>
      <% }else { %>
         <div class="row">
             <div class="col">
@@ -25,7 +24,7 @@
                     <% posts.forEach(function(post){ %>
                         <h3><%= post.title %></h3>
                         <p class="lastSeen">
-                            Last edited: 
+                            Last edited on
                             <%= new Date(post.updatedAt).toLocaleDateString(
                                 "en-US", 
                                 {weekday: "long",
