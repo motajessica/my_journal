@@ -85,7 +85,6 @@ const postSchema = mongoose.Schema({
 }, {timestamps: true});
 const Post = mongoose.model("Post", postSchema);
 
-
 // INDEX
 app.get("/", async function(req, res){
   if (req.isAuthenticated()){
