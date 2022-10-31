@@ -4,22 +4,16 @@ html {
   position: relative;
 }
 
-
 h1,h2,h3,h4,p { 
   font-family: 'Montserrat', sans-serif;
   color:#777777;
 }
-
-
 
 label {
   font-family: Montserrat-light, sans-serif;
   font-size: 15x;
   color: #777777;
 }
-
-
-
 
 .colored-section{
   background-color: #FFBCBC;
@@ -29,12 +23,9 @@ label {
 .white-section{
   background-color: white;
   color:FFBCBC ;
-
 } 
 
-
 /* NAVGATION BAR */ 
-
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -48,7 +39,6 @@ label {
     color: #FFBCBC !important;
 }
 
-
 .navbar{
   padding-bottom: 1.0rem;
 }
@@ -57,12 +47,10 @@ label {
   font-family: 'Ubuntu', sans-serif;
   font-size: 1.5rem;
   padding-left: 0%;
- 
 }
 
 .nav-item{
   padding: 0 15px;
-
 }
 
 .nav-link{
@@ -70,20 +58,18 @@ label {
   font-family:'Montserrat', sans-serif; ;
   font-weight: lighter;
   letter-spacing: 1px;
-  
 }
 
 /*FEATURES*/
-
 #features{
   position:relative;
   z-index: 1;
 }
+
 .feature-title{
   font-family: 'Montserrat-bold', sans-serif;
   font-weight: 350;  
   font-size: 23px;
-
 }
 
 .feature-box{
@@ -95,15 +81,11 @@ label {
 color: white ;
 }
 
-
-
 /* TESTIMONIALS */
-
 .testimonial-img{
   width: 12%;
   border-radius: 10%;
   margin: 0.25em;
-  
 }
 
 .testimonial-text{
@@ -118,11 +100,7 @@ color: white ;
   padding: 7% 15%;
 }
 
-
-
-
 /* FOOTER */ 
-
 .footer-padding {
 	padding-bottom: 60px;
 }
@@ -147,15 +125,12 @@ color: white ;
   transform: scale(1.3)
 }
 
-
 /* Title Section */
 #title{
   text-align: left;
 }
 
-
 /* titles heading */
-
 .titles {
   font-family: 'Montserrat', sans-serif;
     font-size: 2.5rem;
@@ -163,8 +138,7 @@ color: white ;
     line-height: 1.5;
     color: #FFBCBC;
     font-weight: lighter;
-    margin-bottom: 40px;
-    
+    margin-bottom: 40px; 
 }
 
 .social-block {
@@ -177,7 +151,6 @@ color: white ;
   color: white;
 }
 
-
 .readmore {
   font-size: 12px;
 }
@@ -186,12 +159,26 @@ color: white ;
   font-size: 0.8rem;
   font-family:'Montserrat', sans-serif; 
   text-decoration: none;
- 
 }
-
 
 .lastSeen {
   font-size: 11px ;
   color: #9ea3a5a6;
   font-weight: 500;
+}
+
+.empty-home {
+  font-size: 30px;
+  color: #9ea3a5a6;
+  font-weight: 400;
+  text-align: center;
+  font-family:'Montserrat', sans-serif;
+}
+
+.empty-home-link {
+  font-size: 30px;
+  color: #0d6efd;
+  font-weight: 400;
+  text-align: center;
+  font-family:'Montserrat', sans-serif;
 }
