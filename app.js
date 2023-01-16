@@ -31,7 +31,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://0.0.0.0:27017/blogDB", {useNewUrlParser: true}).then(() => {
+  console.log("Connected to Database");
+  }).catch((err) => {
+      console.log("Not Connected to Database ERROR! ", err);
+  });;
 
 const userSchema = new mongoose.Schema ({
   email: String,

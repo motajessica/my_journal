@@ -16,7 +16,7 @@ label {
 }
 
 .colored-section{
-  background-color: #9A1663;
+  background-color: #579BB1;
   color: #fff;
 }
 
@@ -59,7 +59,7 @@ label {
 #features{
   position:relative;
   z-index: 1;
-}
+} */
 
 .feature-title{
   font-family: 'Montserrat-bold', sans-serif;
@@ -68,7 +68,7 @@ label {
 }
 
 .feature-box{
-  padding: 7%;
+  padding: 5%;
   text-align: center;
 }
 
@@ -105,7 +105,7 @@ color: white ;
 .footer {
 	position: absolute;
 	bottom: 0;
-	background-color: #9A1663;
+	background-color: #579BB1;
   color: white;
   font-size: 15px;
   font-family:"Ubuntu" ;
@@ -129,11 +129,10 @@ color: white ;
 /* titles heading */
 .titles {
   font-family: 'Ubuntu';
-  text-decoration: underline;
   font-size: 1.5rem;
   text-align:center;
   line-height: 1.5;
-  color: #9A1663;
+  color: #579BB1;
   font-weight: lighter;
   margin-bottom: 40px;
 }
@@ -144,7 +143,7 @@ color: white ;
 
 .btn-app {
   margin-top: 1rem;
-  background-color: #9A1663;
+  background-color: #579BB1;
   color: white;
 }
 
