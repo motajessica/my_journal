@@ -1,6 +1,6 @@
 <%- include("partials/header"); -%>
 
-<div class="mt-2 mt-5 container">
+<div class="mt-1 mb-2 container">
   <div class="row d-lg-none mb-5">
     <div class="col d-flex justify-content-start">
         <a class="link" href="/">< Back to Home Page</a>
@@ -20,7 +20,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <div class=" gap-2 d-flex">
+      <div class=" gap-3 d-flex">
         <form action="/posts/<%= postId %>" method="post">
           <button value="delete" confirm="Are you sure?" class="btn btn-sm btn-danger " type="submit"> 
             <i class="fa-solid fa-trash"></i> Delete 
@@ -33,6 +33,7 @@
           </a>
         </div>
       </div>
+   </div>
   </div>
 </div>  
 
