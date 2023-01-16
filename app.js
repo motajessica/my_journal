@@ -3,6 +3,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const { check, validationResult } = require('express-validator')
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const _ = require("lodash");
@@ -15,6 +16,8 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { render } = require("express/lib/response");
+const { isLength } = require("lodash");
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 const app = express();
@@ -240,6 +243,28 @@ app.get("/contact", function(req, res){
 
 
 //==================================//
+// REGISTER VALIDATION //
+//=================================//
+
+
+app.post("/register", urlencodedParser, [
+  check("email", "Email is not valid")
+    .isEmail()
+    .normalizeEmail(), 
+  check("password", "Password is not valid")
+    .isLength({ min: 3})
+], 
+(req, res)=> {
+  const errors = validationResult(req)
+  if(!errors.isEmpty()) {
+      // return res.status(422).jsonp(errors.array())
+      const alert = errors.array()
+      res.render('register', { alert, isAuthenticated: false});
+  };
+});
+
+
+//==================================//
 // LOGIN//
 //==================================//
 app.get("/auth/google",
@@ -268,18 +293,18 @@ app.get("/logout", function(req, res){
   });
 });
 
-app.post("/register", function(req, res){
-  User.register({username: req.body.username}, req.body.password, function(err, user){
-    if (err) {
-      console.log(err);
-      res.redirect("/register");
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/");
-      });
-    };
-  });
-});
+// app.post("/register", function(req, res){
+//   User.register({username: req.body.username}, req.body.password, function(err, user){
+//     if (err) {
+//       console.log(err);
+//       res.redirect("/register");
+//     } else {
+//       passport.authenticate("local")(req, res, function(){
+//         res.redirect("/");
+//       });
+//     };
+//   });
+// });
 
 app.post("/login", function(req, res){
   const user = new User({
@@ -298,6 +323,9 @@ app.post("/login", function(req, res){
     };
   });
 });
+
+
+
 //==================================//
 // END OF LOGIN//
 //==================================//

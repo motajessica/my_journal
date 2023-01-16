@@ -1,13 +1,26 @@
 <%- include('partials/header') %>
-<div class="container mt-5">
+<div class="container">
   <h1 class="titles">REGISTER</h1>
+
+<!--Registration Email and Password Validation -->
+  <% if(typeof alert != 'undefined') { %>
+    <% alert.forEach(function(error) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= error.msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"   onClick="{}"   >
+              <!-- &times -->
+              <span aria-hidden="false">×</span>
+            </button>
+          </div>
+    <% }) %>
+<% } %>
 
   <div class="row">
     <div class="col-sm-8">
       <div class="">
         <div clas="">
             <!-- Makes POST request to /register route -->
-            <form action="/register" method="POST">
+            <form action="/register" method="POST" novalidate>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" name="username" placeholder="Email">
