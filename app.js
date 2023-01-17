@@ -243,12 +243,15 @@ app.get("/contact", function(req, res){
 
 
 //==================================//
-// REGISTER VALIDATION //
+// REGISTER  //
 //=================================//
 
-
+app.get ("/register", function(req, res){
+  res.render("register", { isAuthenticated: req.isAuthenticated(), form: {}});
+});
+  
 app.post("/register", urlencodedParser, [
-  check("email", "Email is not valid")
+  check("username", "Email is not valid")
     .isEmail()
     .normalizeEmail(), 
   check("password", "Password is not valid")
@@ -256,11 +259,18 @@ app.post("/register", urlencodedParser, [
 ], 
 (req, res)=> {
   const errors = validationResult(req)
-  if(!errors.isEmpty()) {
-      // return res.status(422).jsonp(errors.array())
-      const alert = errors.array()
-      res.render('register', { alert, isAuthenticated: false});
-  };
+  User.register({username: req.body.username}, req.body.password, function(err, user){
+    if(!errors.isEmpty()) {
+        // return res.status(422).jsonp(errors.array())
+        const alert = errors.array()
+        const form = req.body
+        res.render('register', {alert, isAuthenticated: false, form: req.body});
+    } else {
+      passport.authenticate("local")(req, res, function(){
+        res.redirect("/");
+      });
+    };
+  });
 });
 
 
@@ -282,9 +292,7 @@ app.get("/login", function(req, res){
   res.render("login", { isAuthenticated: req.isAuthenticated()});
 
 });
-app.get ("/register", function(req, res){
-  res.render("register", { isAuthenticated: req.isAuthenticated()});
-});
+
 
 app.get("/logout", function(req, res){
   req.logout(function(err) {
