@@ -19,7 +19,6 @@ const { render } = require("express/lib/response");
 const { isLength } = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -125,7 +124,6 @@ app.get("/compose", function(req, res){
       postId: null
     });
   }
-  
 });
 
 // CREATE
@@ -142,14 +140,13 @@ app.post("/compose", function(req, res){
     post.save(function(err){
        if (!err){
          res.redirect("/");
-       }
+       };
      });
   };
 });
 
 //  UPDATE
 app.post("/posts/:postId/update", function(req, res){
-
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
@@ -161,7 +158,7 @@ app.post("/posts/:postId/update", function(req, res){
         res.render("edit");
       } else {
         res.redirect(`/posts/${post._id}`);
-      }
+      };
     });
   };
 });
@@ -241,11 +238,9 @@ app.get("/contact", function(req, res){
 // END OF POSTS//
 //==================================//
 
-
 //==================================//
 // REGISTER  //
 //=================================//
-
 app.get ("/register", function(req, res){
   res.render("register", { isAuthenticated: req.isAuthenticated(), form: {}});
 });
@@ -273,7 +268,6 @@ app.post("/register", urlencodedParser, [
   });
 });
 
-
 //==================================//
 // LOGIN//
 //==================================//
@@ -285,14 +279,12 @@ app.get("/auth/google/myjournal", passport.authenticate("google", { failureRedir
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect("/");
-  }
-);
+});
 
 app.get("/login", function(req, res){
   res.render("login", { isAuthenticated: req.isAuthenticated()});
 
 });
-
 
 app.get("/logout", function(req, res){
   req.logout(function(err) {
@@ -332,8 +324,6 @@ app.post("/login", function(req, res){
   });
 });
 
-
-
 //==================================//
 // END OF LOGIN//
 //==================================//
@@ -355,7 +345,4 @@ function getDate() {
     day: "numeric",
     month: "long"
   }));
-}
-
-
- 
+};
