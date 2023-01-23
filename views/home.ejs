@@ -1,7 +1,7 @@
 <%- include("partials/header"); -%>
 
-<div class="mt-2 mb-5 container">
-    <div class="row d-lg-none mb-2">
+<div class="mt-2 mb-5 container max-700">
+    <div class="row mb-2">
         <div class="col d-flex justify-content-start">
             <a class="link" href="/compose">+ Compose</a>
         </div>
@@ -25,7 +25,7 @@
             <div class="col">
                 <div >
                     <% posts.forEach(function(post){ %>
-                        <h3><%= post.title %></h3>
+                    <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>
                         <p class="lastSeen">
                             Last edited: 
                             <%= new Date(post.updatedAt).toLocaleDateString(
