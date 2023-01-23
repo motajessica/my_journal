@@ -182,3 +182,7 @@ color: white ;
 /* .card {
   background-color: #EDEDED;
 } */
+
+.max-700 {
+  max-width: 700px;
+}
