@@ -13,7 +13,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { render } = require("express/lib/response");
-const { isLength } = require("lodash");
+const { isLength, reduceRight } = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const app = express();
@@ -247,20 +247,29 @@ app.post("/register", urlencodedParser, [
   check("password", "Password is not valid")
     .isLength({ min: 3})
 ], 
-(req, res)=> {
-  const errors = validationResult(req)
-  User.register({username: req.body.username}, req.body.password, function(err, user){
-    if(!errors.isEmpty()) {
-        // return res.status(422).jsonp(errors.array())
-        const alert = errors.array()
-        const form = req.body
-        res.render('register', {alert, isAuthenticated: false, form: req.body});
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/");
-      });
-    };
-  });
+async (req, res)=> {
+   
+ const userExist = await User.exists({username: req.body.username});
+ if (userExist) {
+   const alert = [{msg: "This email has already in use"}]
+   res.render('register', {alert, isAuthenticated: false, form: req.body});
+
+  } else {
+    User.register({username: req.body.username}, req.body.password, function(err, user){
+      const errors = validationResult(req) 
+      if(!errors.isEmpty()) {
+          // return res.status(422).jsonp(errors.array())
+          const alert = errors.array()
+          const form = req.body
+          res.render('/partials/register', {alert, isAuthenticated: false, form: req.body});
+      } else {
+        // const sucessMsg = [{msg: "Sucess, you can login now"}]
+        passport.authenticate("local")(req, res, function(){
+          res.redirect("/login");
+        });
+      };
+    });
+  }
 });
 
 //==================================//
