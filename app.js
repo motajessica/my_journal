@@ -88,7 +88,7 @@ const postSchema = mongoose.Schema({
 }, {timestamps: true});
 const Post = mongoose.model("Post", postSchema);
 
-// INDEX
+// INDEX HOME
 app.get("/", async function(req, res){
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
@@ -265,7 +265,7 @@ async (req, res)=> {
       } else {
         // const sucessMsg = [{msg: "Sucess, you can login now"}]
         passport.authenticate("local")(req, res, function(){
-          res.redirect("/login");
+          res.redirect("/");
         });
       };
     });
