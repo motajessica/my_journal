@@ -261,7 +261,7 @@ async (req, res)=> {
           // return res.status(422).jsonp(errors.array())
           const alert = errors.array()
           const form = req.body
-          res.render('/partials/register', {alert, isAuthenticated: false, form: req.body});
+          res.render('register', {alert, isAuthenticated: false, form: req.body});
       } else {
         // const sucessMsg = [{msg: "Sucess, you can login now"}]
         passport.authenticate("local")(req, res, function(){
@@ -286,7 +286,11 @@ app.get("/auth/google/myjournal", passport.authenticate("google", { failureRedir
 });
 
 app.get("/login", function(req, res){
-  res.render("login", { isAuthenticated: req.isAuthenticated()});
+  const messages = req.session.messages || []
+    const alert = messages.map((message) => {
+      return {msg: message}
+    });
+  res.render("login", {alert, isAuthenticated: req.isAuthenticated()});
 
 });
 
@@ -297,19 +301,6 @@ app.get("/logout", function(req, res){
   });
 });
 
-// app.post("/register", function(req, res){
-//   User.register({username: req.body.username}, req.body.password, function(err, user){
-//     if (err) {
-//       console.log(err);
-//       res.redirect("/register");
-//     } else {
-//       passport.authenticate("local")(req, res, function(){
-//         res.redirect("/");
-//       });
-//     };
-//   });
-// });
-
 app.post("/login", function(req, res){
   const user = new User({
     username: req.body.username,
@@ -317,11 +308,11 @@ app.post("/login", function(req, res){
   });
   
   req.login(user, function(err){
-    if (err) {
-      // console.log(err);
+    if (err) { 
+      console.log(err);
       res.redirect("/login");
     } else {
-      passport.authenticate("local")(req, res, function(){
+      passport.authenticate("local", {failureRedirect: '/login', failureMessage: true})(req, res, function(){
         res.redirect("/");
       });
     };

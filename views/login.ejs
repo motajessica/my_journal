@@ -6,6 +6,14 @@
     <div class="col-sm-8">
       <div class="">
         <div class="">
+<!-- Login alert message -->
+          <% if(typeof alert != 'undefined') { %>
+            <% alert.forEach(function(error) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error.msg %>
+                  </div>
+            <% }) %>
+        <% } %>
 
           <!-- Makes POST request to /login route -->
           <form action="/login" method="POST">
