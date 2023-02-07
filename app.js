@@ -35,6 +35,7 @@ mongoose.connect("mongodb://0.0.0.0:27017/blogDB", {useNewUrlParser: true}).then
   }).catch((err) => {
       console.log("Not Connected to Database ERROR! ", err);
   });;
+ 
 
 const userSchema = new mongoose.Schema ({
   email: String,
@@ -48,6 +49,7 @@ userSchema.plugin(findOrCreate);
 const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
+
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
     return cb(null, {
@@ -253,7 +255,6 @@ async (req, res)=> {
  if (userExist) {
    const alert = [{msg: "This email has already in use"}]
    res.render('register', {alert, isAuthenticated: false, form: req.body});
-
   } else {
     User.register({username: req.body.username}, req.body.password, function(err, user){
       const errors = validationResult(req) 
@@ -262,6 +263,8 @@ async (req, res)=> {
           const alert = errors.array()
           const form = req.body
           res.render('register', {alert, isAuthenticated: false, form: req.body});
+
+          
       } else {
         // const sucessMsg = [{msg: "Sucess, you can login now"}]
         passport.authenticate("local")(req, res, function(){
@@ -287,12 +290,23 @@ app.get("/auth/google/myjournal", passport.authenticate("google", { failureRedir
 
 app.get("/login", function(req, res){
   const messages = req.session.messages || []
+  
+  //if passport authenticated is false // 
+  
+  console.log(messages)
+
     const alert = messages.map((message) => {
       return {msg: message}
+
+      //get logout// 
     });
+
+    //else // 
   res.render("login", {alert, isAuthenticated: req.isAuthenticated()});
 
 });
+
+
 
 app.get("/logout", function(req, res){
   req.logout(function(err) {
@@ -301,23 +315,54 @@ app.get("/logout", function(req, res){
   });
 });
 
-app.post("/login", function(req, res){
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
+const authenticate =  passport.authenticate('local', {
+  failureRedirect: '/login',
+  failureFlash: 'Invalid username or password.',
+  successRedirect: '/', 
+  successFlash: 'Success login'
+})
+
+app.post("/login",  authenticate, function(req, res){})
+  // const user = new User({
+  //   username: req.body.username,
+  //   password: req.body.password
+  // });
+
+
+  // passport.authenticate("local", function (err, user, info) {
+  //   if (err) {
+  //     console.log(err)
+  //       res.json({ success: false, message: err });
+  //   }
+  //   else {
+  //     if (!user) {
+
+  //         res.render('login',{ isAuthenticated: false, alert: [{msg: "The password or username are incorrect"}] });
+  //     }
+  //     else {
+  //         res.redirect('/');
+  //     }
+  //   }
+  // })(req, res);
+
   
-  req.login(user, function(err){
-    if (err) { 
-      console.log(err);
-      res.redirect("/login");
-    } else {
-      passport.authenticate("local", {failureRedirect: '/login', failureMessage: true})(req, res, function(){
-        res.redirect("/");
-      });
-    };
-  });
-});
+  // // req.login(user, function(err){
+  // //   if (err) { 
+  // //     console.log(err);
+  // //     res.redirect("/login");
+  // //   } else {
+  //             if (!user) {
+  //               res.render('register', {alert, isAuthenticated: false, form: req.body});
+  //             } else {
+  //               passport.authenticate("local", {failureRedirect: '/login', failureMessage: true})(req, res, function(){
+  //                 //       res.redirect("/");
+  //             }
+  // //  
+  // //     });
+  // //   };
+  // // }
+
+
 
 //==================================//
 // END OF LOGIN//
