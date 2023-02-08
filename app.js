@@ -15,6 +15,7 @@ const findOrCreate = require("mongoose-findorcreate");
 const { render } = require("express/lib/response");
 const { isLength, reduceRight } = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
 
 const DB_URI = process.env.MONGODB_URI || "mongodb://0.0.0.0:27017/blogDB"
 mongoose.connect(DB_URI, {useNewUrlParser: true}).then(() => {
@@ -287,12 +290,12 @@ app.get("/auth/google/myjournal", passport.authenticate("google", { failureRedir
 });
 
 app.get("/login", function(req, res){
-  const messages = req.session.messages || []
-    const alert = messages.map((message) => {
-      return {msg: message}
-    });
+  const error = req.flash('error')
+  const alert = (error || []).map((message) => {
+    return {msg: message}
+  });
+    
   res.render("login", {alert, isAuthenticated: req.isAuthenticated()});
-
 });
 
 app.get("/logout", function(req, res){
@@ -302,22 +305,30 @@ app.get("/logout", function(req, res){
   });
 });
 
-app.post("/login", function(req, res){
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
+const authenticate =  passport.authenticate('local', {
+  failureRedirect: '/login',
+  failureFlash: 'Invalid username or password.',
+  successRedirect: '/', 
+  successFlash: 'Success login'
+})
+
+app.post("/login", authenticate, function(req, res){
+  // const user = new User({
+  //   username: req.body.username,
+  //   password: req.body.password
+  // });
+
   
-  req.login(user, function(err){
-    if (err) { 
-      console.log(err);
-      res.redirect("/login");
-    } else {
-      passport.authenticate("local", {failureRedirect: '/login', failureMessage: true})(req, res, function(){
-        res.redirect("/");
-      });
-    };
-  });
+  // req.login(user, function(err){
+  //   if (err) { 
+  //     console.log(err);
+  //     res.redirect("/login");
+  //   } else {
+  //     passport.authenticate("local", {failureRedirect: '/login', failureMessage: true})(req, res, function(){
+  //       res.redirect("/");
+  //     });
+  //   };
+  // });
 });
 
 //==================================//
