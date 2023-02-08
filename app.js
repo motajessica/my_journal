@@ -312,24 +312,7 @@ const authenticate =  passport.authenticate('local', {
   successFlash: 'Success login'
 })
 
-app.post("/login", authenticate, function(req, res){
-  // const user = new User({
-  //   username: req.body.username,
-  //   password: req.body.password
-  // });
-
-  
-  // req.login(user, function(err){
-  //   if (err) { 
-  //     console.log(err);
-  //     res.redirect("/login");
-  //   } else {
-  //     passport.authenticate("local", {failureRedirect: '/login', failureMessage: true})(req, res, function(){
-  //       res.redirect("/");
-  //     });
-  //   };
-  // });
-});
+app.post("/login", authenticate, function(req, res){});
 
 //==================================//
 // END OF LOGIN//
