@@ -23,6 +23,17 @@
      <% }else { %>
         <div class="row">
             <div class="col">
+<% console.log(alert)%>
+                <% if(typeof alert !== undefined) { %>
+                    <% alert.forEach(function(alert) { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                           <% console.log(alert.msg) %> 
+                            <%= alert.msg %>
+                          </div>
+                    <% }) %>
+                <% } %>
+               
+
                 <div >
                     <% posts.forEach(function(post){ %>
                     <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>
@@ -37,7 +48,7 @@
                             )%>
                         </p>
                         <p class="mb-5">
-                            <%=post.content.substring(0,100) + " ...   " %>
+                            <%=post.content.substring(0,200) + " ...   " %>
                             <a class="link" href="/posts/<%=post._id%>">Read more</a>
                         </p>
                     <% }) %>

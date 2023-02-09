@@ -94,15 +94,24 @@ const Post = mongoose.model("Post", postSchema);
 
 // INDEX HOME
 app.get("/", async function(req, res){
+  const success = req.flash('success')
+
+
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
     posts.forEach(function(post){
       post.title = _.capitalize(post.title)
     })
+
+    const alert = (success || []).map((message) => {
+      return {msg: message}
+    });
+     
     res.render("home",{
+      alert: alert,
       posts: posts.reverse(),
       isAuthenticated: req.isAuthenticated(),
-      today: getDate(),
+      today: getDate()
     });
   } else {
     res.redirect("welcome");
@@ -140,7 +149,8 @@ app.post("/compose", function(req, res){
     });
     post.save(function(err){
        if (!err){
-         res.redirect("/");
+        req.flash('success','Your message has been saved');
+        res.redirect("/");
        };
      });
   };
@@ -310,7 +320,7 @@ const authenticate =  passport.authenticate('local', {
   failureFlash: 'Invalid username or password.',
   successRedirect: '/', 
   successFlash: 'Success login'
-})
+});
 
 app.post("/login", authenticate, function(req, res){});
 
