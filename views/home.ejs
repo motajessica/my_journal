@@ -29,13 +29,13 @@
                            <% console.log(alert.msg) %> 
                             <%= alert.msg %>
                           </div>
-                          <script>
-                            setTimeout(function() {
-                              document.getElementById('flash-message').style.display = 'none';
-                            }, 2500);
-                          </script>
                     <% }) %>
                 <% } %>
+                <script>
+                    setTimeout(function() {
+                      document.getElementById('flash-message').style.display = 'none';
+                    }, 2500);
+                  </script>
                 <div >
                     <% posts.forEach(function(post){ %>
                     <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>

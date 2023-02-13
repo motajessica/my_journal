@@ -206,8 +206,8 @@ app.post("/posts/:postId", function(req, res){
           isAuthenticated: req.isAuthenticated(),
         });
       } else { 
-      req.flash('success','Your message has been deleted');
-       return res.redirect("/")
+          req.flash('success','Your message has been deleted');
+          return res.redirect("/")
       }
     });
   } else {

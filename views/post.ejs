@@ -13,13 +13,13 @@
            <% console.log(alert.msg) %> 
             <%= alert.msg %>
           </div>
-          <script>
-            setTimeout(function() {
-              document.getElementById('flash-message').style.display = 'none';
-            }, 2500);
-          </script>
     <% }) %>
 <% } %>
+  <script>
+    setTimeout(function() {
+      document.getElementById('flash-message').style.display = 'none';
+    }, 2500);
+  </script>
   <div class="row">
     <div class="col">    
       <h1>  <%=title%> </h1>
