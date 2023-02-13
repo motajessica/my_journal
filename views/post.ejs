@@ -6,8 +6,22 @@
         <a class="link" href="/">< Back to Home Page</a>
     </div>
   </div> 
+
+  <% if(typeof alert !== undefined) { %>
+    <% alert.forEach(function(alert) { %>
+        <div id="flash-message" class="alert alert-success alert-dismissible fade show text-center" role="alert">
+           <% console.log(alert.msg) %> 
+            <%= alert.msg %>
+          </div>
+          <script>
+            setTimeout(function() {
+              document.getElementById('flash-message').style.display = 'none';
+            }, 2500);
+          </script>
+    <% }) %>
+<% } %>
   <div class="row">
-    <div class="col">
+    <div class="col">    
       <h1>  <%=title%> </h1>
       <p class="lastSeen">Last edited: <%=new Date(updatedAt).toLocaleDateString("en-US", {
         weekday: "long",
