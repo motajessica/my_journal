@@ -32,7 +32,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-
 const DB_URI = process.env.MONGODB_URI || "mongodb://0.0.0.0:27017/blogDB"
 mongoose.connect(DB_URI, {useNewUrlParser: true}).then(() => {
   console.log("Connected to Database");
@@ -94,21 +93,25 @@ const Post = mongoose.model("Post", postSchema);
 
 // INDEX HOME
 app.get("/", async function(req, res){
+  const success = req.flash('success')
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
     posts.forEach(function(post){
       post.title = _.capitalize(post.title)
-    })
+    });
+    const alert = (success || []).map((message) => {
+      return {msg: message}
+    });
     res.render("home",{
+      alert: alert,
       posts: posts.reverse(),
       isAuthenticated: req.isAuthenticated(),
-      today: getDate(),
+      today: getDate()
     });
   } else {
     res.redirect("welcome");
   };
 });
-
 app.get("/welcome", function(req, res){
   res.render("welcome", { isAuthenticated: req.isAuthenticated()}); 
 });
@@ -140,7 +143,8 @@ app.post("/compose", function(req, res){
     });
     post.save(function(err){
        if (!err){
-         res.redirect("/");
+        req.flash('success','Your message has been saved');
+        res.redirect("/");
        };
      });
   };
@@ -158,6 +162,7 @@ app.post("/posts/:postId/update", function(req, res){
       if (err){
         res.render("edit");
       } else {
+        req.flash('success','Your message has been edited');
         res.redirect(`/posts/${post._id}`);
       };
     });
@@ -167,6 +172,11 @@ app.post("/posts/:postId/update", function(req, res){
 // SHOW
 app.get("/posts/:postId", function(req, res){
   if (req.isAuthenticated()){
+
+    const success = req.flash('success')
+    const alert = (success || []).map((message) => {
+      return {msg: message}
+    });
     const requestedPostId = req.params.postId;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
@@ -175,7 +185,8 @@ app.get("/posts/:postId", function(req, res){
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
           postId: post.id,
-          updatedAt: post.updatedAt,
+          updatedAt: post.updatedAt, 
+          alert: alert
         });
     });
   } else {
@@ -192,10 +203,11 @@ app.post("/posts/:postId", function(req, res){
         res.render("post", {
           title: post.title,
           content: post.content,
-          isAuthenticated: req.isAuthenticated()
+          isAuthenticated: req.isAuthenticated(),
         });
       } else { 
-       return res.redirect("/")
+          req.flash('success','Your message has been deleted');
+          return res.redirect("/")
       }
     });
   } else {
@@ -221,6 +233,10 @@ app.get("/posts/:postId/edit", function(req, res){
   };
 });
 
+//==================================//
+// END OF POSTS//
+//==================================//
+
 app.get("/about", function(req, res){
   res.render("about", {
     isAuthenticated: req.isAuthenticated()
@@ -232,10 +248,6 @@ app.get("/contact", function(req, res){
     isAuthenticated: req.isAuthenticated()
   });
 });
-
-//==================================//
-// END OF POSTS//
-//==================================//
 
 //==================================//
 // REGISTER  //
@@ -310,7 +322,7 @@ const authenticate =  passport.authenticate('local', {
   failureFlash: 'Invalid username or password.',
   successRedirect: '/', 
   successFlash: 'Success login'
-})
+});
 
 app.post("/login", authenticate, function(req, res){});
 

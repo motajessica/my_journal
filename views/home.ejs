@@ -23,6 +23,19 @@
      <% }else { %>
         <div class="row">
             <div class="col">
+                <% if(typeof alert !== undefined) { %>
+                    <% alert.forEach(function(alert) { %>
+                        <div id="flash-message" class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                           <% console.log(alert.msg) %> 
+                            <%= alert.msg %>
+                          </div>
+                    <% }) %>
+                <% } %>
+                <script>
+                    setTimeout(function() {
+                      document.getElementById('flash-message').style.display = 'none';
+                    }, 2500);
+                  </script>
                 <div >
                     <% posts.forEach(function(post){ %>
                     <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>
@@ -37,7 +50,7 @@
                             )%>
                         </p>
                         <p class="mb-5">
-                            <%=post.content.substring(0,100) + " ...   " %>
+                            <%=post.content.substring(0,200) + " ...   " %>
                             <a class="link" href="/posts/<%=post._id%>">Read more</a>
                         </p>
                     <% }) %>
