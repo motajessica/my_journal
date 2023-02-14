@@ -1,30 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require('express-validator')
-const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const router = express.Router();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const findOrCreate = require("mongoose-findorcreate");
 
-const DB_URI = process.env.MONGODB_URI || "mongodb://0.0.0.0:27017/blogDB"
-mongoose.connect(DB_URI, {useNewUrlParser: true}).then(() => {
-  console.log("Connected to Database");
-  }).catch((err) => {
-      console.log("Not Connected to Database ERROR! ", err);
-  });;
-
-  const userSchema = new mongoose.Schema ({
-    email: String,
-    password: String,
-    googleId: String
-  });
-  
-  userSchema.plugin(passportLocalMongoose);
-  userSchema.plugin(findOrCreate);
-  
-// const User = new mongoose.model("User", userSchema);
+const User = require("../models/user")
 
 passport.use(User.createStrategy());
 passport.serializeUser(function(user, cb) {
@@ -57,43 +39,39 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
-
-// // 
-
+// GET /register
 router.get ("/register", function(req, res){
-    res.render("register", { isAuthenticated: req.isAuthenticated(), form: {}});
-  });
-    
-  router.post("/register", urlencodedParser, [
-    check("username", "Email is not valid")
-      .isEmail()
-      .normalizeEmail(), 
-    check("password", "Password is not valid")
-      .isLength({ min: 3})
-  ], 
-  async (req, res)=> {
-     
-   const userExist = await User.exists({username: req.body.username});
-   if (userExist) {
-     const alert = [{msg: "This email has already in use"}]
-     res.render('register', {alert, isAuthenticated: false, form: req.body});
+  res.render("register", { isAuthenticated: req.isAuthenticated(), form: {}});
+});
   
+const registerChecks = [
+  check("username", "Email is not valid").isEmail()
+    .normalizeEmail(),
+  check("password", "Password is not valid")
+    .isLength({ min: 3})
+]
+
+// POST /register
+router.post("/register", urlencodedParser, registerChecks, 
+  async (req, res)=> {
+    const userExists = await User.exists({username: req.body.username});
+    if (userExists) {
+      const alert = [{msg: "This email has already in use"}]
+      res.render('register', {alert, isAuthenticated: false, form: req.body});
     } else {
       User.register({username: req.body.username}, req.body.password, function(err, user){
         const errors = validationResult(req) 
         if(!errors.isEmpty()) {
-            // return res.status(422).jsonp(errors.array())
             const alert = errors.array()
-            const form = req.body
             res.render('register', {alert, isAuthenticated: false, form: req.body});
         } else {
-          // const sucessMsg = [{msg: "Sucess, you can login now"}]
           passport.authenticate("local")(req, res, function(){
             res.redirect("/");
           });
-        };
+        }
       });
     }
-  });
+  }
+);
 
 module.exports = router;  
