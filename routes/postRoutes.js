@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const getDate = require('../helpers/dateHelper');
+
 
 const postSchema = mongoose.Schema({
     title: String,
@@ -155,19 +157,7 @@ router.get("/posts/:postId/edit", function(req, res){
   
 // TODO: THIS MUST GO INTO helpers/dateHelper.js
 // Export function as a module and then require in the beginning of this file so getDate() is available to use.
-function getDate() {
-  let today = new Date();
-  let options = {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  };
-  return(today.toLocaleDateString("en-US", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  }));
-};
+
 
 module.exports = router;  
 
