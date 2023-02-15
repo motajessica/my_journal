@@ -56,7 +56,7 @@ router.post("/register", urlencodedParser, registerChecks,
   async (req, res)=> {
     const userExists = await User.exists({username: req.body.username});
     if (userExists) {
-      const alert = [{msg: "This email has already in use"}]
+      const alert = [{msg: "This email is already in use"}]
       res.render('register', {alert, isAuthenticated: false, form: req.body});
     } else {
       User.register({username: req.body.username}, req.body.password, function(err, user){

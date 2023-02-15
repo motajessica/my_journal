@@ -11,5 +11,6 @@ const getDate = function getDate() {
         day: "numeric",
         month: "long"
     }));
-    };
+};
+
 module.exports = getDate;

@@ -19,7 +19,6 @@ router.get("/login", function(req, res){
   const alert = (error || []).map((message) => {
     return {msg: message}
   });
-    
   res.render("login", {alert, isAuthenticated: req.isAuthenticated()});
 });
 
@@ -38,6 +37,5 @@ const authenticate =  passport.authenticate('local', {
 });
 
 router.post("/login", authenticate, function(req, res){});
-
 
 module.exports = router;  

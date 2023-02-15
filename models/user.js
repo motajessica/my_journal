@@ -3,9 +3,9 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
 
 const userSchema = new mongoose.Schema ({
-  email: String,
-  password: String,
-  googleId: String
+    email: String,
+    password: String,
+    googleId: String
 });
 
 userSchema.plugin(passportLocalMongoose);

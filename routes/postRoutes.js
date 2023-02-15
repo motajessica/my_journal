@@ -4,15 +4,8 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const getDate = require('../helpers/dateHelper');
 
+const Post = require("../models/post")
 
-const postSchema = mongoose.Schema({
-    title: String,
-    content: String,
-    userId: String
-  }, {timestamps: true});
-
-const Post = mongoose.model("Post", postSchema);
-  
   // INDEX HOME
 router.get("/", async function(req, res){
   const success = req.flash('success')
@@ -94,7 +87,6 @@ router.post("/posts/:postId/update", function(req, res){
   // SHOW
 router.get("/posts/:postId", function(req, res){
   if (req.isAuthenticated()){
-
     const success = req.flash('success')
     const alert = (success || []).map((message) => {
       return {msg: message}
@@ -155,9 +147,5 @@ router.get("/posts/:postId/edit", function(req, res){
   };
 });
   
-// TODO: THIS MUST GO INTO helpers/dateHelper.js
-// Export function as a module and then require in the beginning of this file so getDate() is available to use.
-
-
 module.exports = router;  
 
