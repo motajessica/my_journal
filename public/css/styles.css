@@ -103,7 +103,7 @@ color: white ;
 }
 
 .footer {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	background-color: #579BB1;
   color: white;
@@ -128,12 +128,12 @@ color: white ;
 
 /* titles heading */
 .titles {
-  font-family: 'Ubuntu';
-  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
   text-align:center;
   line-height: 1.5;
   color: #579BB1;
-  font-weight: lighter;
+  font-weight: bold;
   margin-bottom: 40px;
 }
 
@@ -194,4 +194,33 @@ color: white ;
 .contact {
   
   font-family:'Montserrat', sans-serif;
+
+}
+
+/* Layout improvement */ 
+.bg {
+  background-color: #ECE8DD;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.front-box {
+  
+  background-color: #E1D7C6;
+}
+
+
+.welcome-img { 
+  
+  width: 100%;
+  border-radius: 5%;
+}
+
+.card-body { 
+  background-color:#E1D7C6 ;
+}
+
+.card-text {
+  color: #4f5c6a;
+  font-size: 15px;
 }
