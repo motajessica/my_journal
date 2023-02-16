@@ -31,7 +31,7 @@ router.get("/logout", function(req, res){
 
 const authenticate =  passport.authenticate('local', {
   failureRedirect: '/login',
-  failureFlash: 'Invalid username or password.',
+  failureFlash: 'Invalid username or password!',
   successRedirect: '/', 
   successFlash: 'Success login'
 });

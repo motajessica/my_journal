@@ -10,7 +10,11 @@
           <% if(typeof alert != 'undefined') { %>
             <% alert.forEach(function(error) { %>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <%= error.msg %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                 <div class="text-center"> 
+                  <i class="fa-solid fa-xmark"></i> 
+                  <%= error.msg %>    
+                 </div>
                 </div>
             <% }) %>
         <% } %>

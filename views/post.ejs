@@ -9,9 +9,15 @@
 
   <% if(typeof alert !== undefined) { %>
     <% alert.forEach(function(alert) { %>
-        <div id="flash-message" class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <div id="flash-message" class="msg-alert alert alert-success alert-dismissible fade show" role="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
            <% console.log(alert.msg) %> 
+           <div class="'text-center">
+            <i class="fa-solid fa-check"></i> 
+            <strong> Success!</strong>
             <%= alert.msg %>
+           </div>
+           </button>
           </div>
     <% }) %>
 <% } %>

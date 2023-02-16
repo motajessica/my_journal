@@ -58,7 +58,7 @@ router.post("/compose", function(req, res){
     });
     post.save(function(err){
        if (!err){
-        req.flash('success','Your message has been saved');
+        req.flash('success','Your message has been saved!');
         res.redirect("/");
        };
      });
@@ -77,7 +77,7 @@ router.post("/posts/:postId/update", function(req, res){
       if (err){
         res.render("edit");
       } else {
-        req.flash('success','Your message has been edited');
+        req.flash('success','Your message has been edited!');
         res.redirect(`/posts/${post._id}`);
       };
     });
@@ -120,7 +120,7 @@ router.post("/posts/:postId", function(req, res){
           isAuthenticated: req.isAuthenticated(),
         });
       } else {
-          req.flash('success','Your message has been deleted');
+          req.flash('success','Your message has been deleted!');
           return res.redirect("/")
       }
     });
