@@ -1,21 +1,17 @@
-
-<% if(typeof alert !== undefined) { %>
-    <% alert.forEach(function(alert) { %>
-        <div id="flash-message" class="msg-alert alert alert-success alert-dismissible fade show text-center" role="alert">
-           <% console.log(alert.msg) %> 
-           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <div class="text-center">
-            <i class="fa-solid fa-check"></i> 
-            <strong> Success!</strong>
-            <%= alert.msg %>
-            </div>
-          </div>
-    <% }) %>
+<% if(msgs) { %> 
+    <div id="flash-message" class="msg-alert alert alert-<%- alertType %> alert-dismissible fade show text-center" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="text-center">
+        <% msgs.forEach(function(msg) { %>
+            <div><%- msg %></div>
+        <% }) %>
+        </div>
+    </div>
 <% } %>
 <script>
     setTimeout(function() {
       document.getElementById('flash-message').style.display = 'none';
-    }, 3000);
-  </script>
+    }, 5000);
+</script>
 
 <!--login alert message-->

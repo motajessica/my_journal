@@ -1,0 +1,6 @@
+<% if(flash.error) { %>
+    <%- include("alert", { msgs: flash.error, alertType: 'danger'} ); -%>
+<% } %>
+<% if(flash.success) { %>
+    <%- include("alert", { msgs: flash.success, alertType: 'success'} ); -%>
+<% } %>

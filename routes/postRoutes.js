@@ -14,14 +14,11 @@ router.get("/", async function(req, res){
     posts.forEach(function(post){
       post.title = _.capitalize(post.title)
     });
-    const alert = (success || []).map((message) => {
-      return {msg: message}
-    });
     res.render("home",{
-      alert: alert,
       posts: posts.reverse(),
       isAuthenticated: req.isAuthenticated(),
-      today: getDate()
+      today: getDate(),
+      flash: req.flash()
     });
   } else {
     res.redirect("welcome");
@@ -65,7 +62,48 @@ router.post("/compose", function(req, res){
   };
 });
   
-  //  UPDATE
+
+  
+  // SHOW
+router.get("/posts/:postId", function(req, res){
+  if (req.isAuthenticated()){
+    const requestedPostId = req.params.postId;
+    Post.findOne({_id:requestedPostId}, function(err, post){
+      console.log(post);
+        res.render("post", {
+          title: _.capitalize(post.title),
+          content: post.content,
+          isAuthenticated: req.isAuthenticated(),
+          postId: post.id,
+          updatedAt: post.updatedAt,
+          flash: req.flash()
+        });
+    });
+  } else {
+    res.redirect("/welcome");
+  };
+});
+  
+
+// EDIT
+router.get("/posts/:postId/edit", function(req, res){
+  if (req.isAuthenticated()){
+    const requestedPostId = req.params.postId;
+    Post.findOne({_id:requestedPostId}, function(err, post){
+      console.log(post);
+        res.render("edit", {
+          postTitle: post.title,
+          postBody: post.content,
+          isAuthenticated: req.isAuthenticated(),
+          postId: post.id
+        });
+    });
+  } else {
+    res.redirect("/welcome");
+  };
+});
+
+//  UPDATE
 router.post("/posts/:postId/update", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
@@ -81,30 +119,6 @@ router.post("/posts/:postId/update", function(req, res){
         res.redirect(`/posts/${post._id}`);
       };
     });
-  };
-});
-  
-  // SHOW
-router.get("/posts/:postId", function(req, res){
-  if (req.isAuthenticated()){
-    const success = req.flash('success')
-    const alert = (success || []).map((message) => {
-      return {msg: message}
-    });
-    const requestedPostId = req.params.postId;
-    Post.findOne({_id:requestedPostId}, function(err, post){
-      console.log(post);
-        res.render("post", {
-          title: _.capitalize(post.title),
-          content: post.content,
-          isAuthenticated: req.isAuthenticated(),
-          postId: post.id,
-          updatedAt: post.updatedAt,
-          alert: alert
-        });
-    });
-  } else {
-    res.redirect("/welcome");
   };
 });
   
@@ -129,23 +143,5 @@ router.post("/posts/:postId", function(req, res){
   }
 });
 
-// EDIT
-router.get("/posts/:postId/edit", function(req, res){
-  if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
-    Post.findOne({_id:requestedPostId}, function(err, post){
-      console.log(post);
-        res.render("edit", {
-          postTitle: post.title,
-          postBody: post.content,
-          isAuthenticated: req.isAuthenticated(),
-          postId: post.id
-        });
-    });
-  } else {
-    res.redirect("/welcome");
-  };
-});
-  
 module.exports = router;  
 

@@ -6,18 +6,7 @@
     <div class="col-sm-8">
       <div class="">
         <div class="">
-<!-- Login alert message -->
-          <% if(typeof alert != 'undefined') { %>
-            <% alert.forEach(function(error) { %>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                 <div class="text-center"> 
-                  <i class="fa-solid fa-xmark"></i> 
-                  <%= error.msg %>    
-                 </div>
-                </div>
-            <% }) %>
-        <% } %>
+          <%- include("partials/alerts") %> 
           <!-- Makes POST request to /login route -->
           <form action="/login" method="POST">
             <div class="form-group">
