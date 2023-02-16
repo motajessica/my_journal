@@ -7,25 +7,8 @@
     </div>
   </div> 
 
-  <% if(typeof alert !== undefined) { %>
-    <% alert.forEach(function(alert) { %>
-        <div id="flash-message" class="msg-alert alert alert-success alert-dismissible fade show" role="alert">
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-           <% console.log(alert.msg) %> 
-           <div class="'text-center">
-            <i class="fa-solid fa-check"></i> 
-            <strong> Success!</strong>
-            <%= alert.msg %>
-           </div>
-           </button>
-          </div>
-    <% }) %>
-<% } %>
-  <script>
-    setTimeout(function() {
-      document.getElementById('flash-message').style.display = 'none';
-    }, 2500);
-  </script>
+  <%- include("partials/alert"); -%>
+ 
   <div class="row">
     <div class="col">    
       <h1>  <%=title%> </h1>
