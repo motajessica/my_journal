@@ -8,7 +8,7 @@ const Post = require("../models/post")
 
   // INDEX HOME
 router.get("/", async function(req, res){
-  const success = req.flash('success')
+ 
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
     posts.forEach(function(post){
@@ -62,8 +62,6 @@ router.post("/compose", function(req, res){
   };
 });
   
-
-  
   // SHOW
 router.get("/posts/:postId", function(req, res){
   if (req.isAuthenticated()){
@@ -84,7 +82,6 @@ router.get("/posts/:postId", function(req, res){
   };
 });
   
-
 // EDIT
 router.get("/posts/:postId/edit", function(req, res){
   if (req.isAuthenticated()){

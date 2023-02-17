@@ -6,13 +6,12 @@
             <a class="link" href="/compose">+ Compose</a>
         </div>
       </div> 
-    <%- include("partials/alerts") %> 
     <div class="row">
         <div class="col">
             <h1 class="titles">Home</h1>
         </div>
     </div>
- 
+    <%- include("partials/alerts") %> 
     <% if (posts.length === 0){ %>
         <div class="row">
             <div class="col empty-home justify-content-center" >
@@ -25,11 +24,9 @@
      <% }else { %>
         <div class="row">
             <div class="col">
-                
-            
                 <div>
                     <% posts.forEach(function(post){ %>
-                    <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>
+                        <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>
                         <p class="lastSeen">
                             Last edited: 
                             <%= new Date(post.updatedAt).toLocaleDateString(

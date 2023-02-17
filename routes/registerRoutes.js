@@ -74,4 +74,5 @@ router.post("/register", urlencodedParser, registerChecks,
   }
 );
 
+
 module.exports = router;  

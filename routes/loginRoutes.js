@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 const flash = require('connect-flash');
 
-
 router.get("/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
 );
