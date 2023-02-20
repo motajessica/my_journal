@@ -36,9 +36,9 @@ router.get("/compose", function(req, res){
     res.render("compose", {
       isAuthenticated: req.isAuthenticated(),
       flash: {},
-      postTitle: null,
-      postBody: null,
-      postId: null
+      title: null,
+      content: null,
+      id: null
     });
   }
 });
@@ -51,45 +51,44 @@ router.post("/compose", postValidations, function(req, res){
   } else {
     console.log(req.body)
     const post = new Post ({
-      title: req.body.postTitle,
-      content: req.body.postBody,
+      title: req.body.title,
+      content: req.body.content,
       userId: req.user.id
     });
       post.save(function(err){
         let errors = validationResult(req) 
-
+       
         if(!errors.isEmpty()) {
           errors = errors.array().map(function(obj) {
             return obj.msg
-          })
-        
-            const flash = {error: errors}
-            res.render('compose', {
-            flash,
-            isAuthenticated: req.isAuthenticated(),
-            postTitle: post.postTitle,
-            postBody: post.postBody,
-            postId: post.id
-            });   
-          } else { 
-            req.flash('success','Your post has been created!');
-            res.redirect("/");  
+          });
+          const flash = {error: errors}
+          res.render('compose', {
+          flash,
+          isAuthenticated: req.isAuthenticated(),
+          title: post.title,
+          content: post.content,
+          id: post.id
+          });   
+        } else { 
+          req.flash('success','Your post has been created!');
+          res.redirect("/");  
         }
       });
   };
 });
   
   // SHOW
-router.get("/posts/:postId", function(req, res){
+router.get("/posts/:id", function(req, res){
   if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
+    const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
         res.render("post", {
           title: _.capitalize(post.title),
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
-          postId: post.id,
+          id: post.id,
           updatedAt: post.updatedAt,
           flash: req.flash()
         });
@@ -100,16 +99,16 @@ router.get("/posts/:postId", function(req, res){
 });
   
 // EDIT
-router.get("/posts/:postId/edit", function(req, res){
+router.get("/posts/:id/edit", function(req, res){
   if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
+    const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
         res.render("edit", {
-          postTitle: post.title,
-          postBody: post.content,
+          title: post.title,
+          body: post.content,
           isAuthenticated: req.isAuthenticated(),
-          postId: post.id
+          id: post.id
         });
     });
   } else {
@@ -118,12 +117,12 @@ router.get("/posts/:postId/edit", function(req, res){
 });
 
 //  UPDATE
-router.post("/posts/:postId/update", function(req, res){
+router.post("/posts/:id/update", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
-    const filter = {_id: req.body.postId};
-    const update = {title: req.body.postTitle, content: req.body.postBody}
+    const filter = {_id: req.body.id};
+    const update = {title: req.body.title, content: req.body.body}
     Post.findOneAndUpdate(filter, update, function(err, post){
       console.log(post);
       if (err){
@@ -137,9 +136,9 @@ router.post("/posts/:postId/update", function(req, res){
 });
   
 //  DELETE
-router.post("/posts/:postId", function(req, res){
+router.post("/posts/:id", function(req, res){
   if (req.isAuthenticated()){
-    const requestedPostId = req.params.postId;
+    const requestedPostId = req.params.id;
     Post.findByIdAndRemove({_id:requestedPostId}, function(err, post){
       if(!!err) {
         res.render("post", {
