@@ -3,13 +3,7 @@
   <h1 class="titles my-5">REGISTER</h1>
 
 <!--Registration Email and Password Validation -->
-  <% if(typeof alert != 'undefined') { %>
-    <% alert.forEach(function(error) { %>
-        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-            <%= error.msg %>
-          </div>
-    <% }) %>
-<% } %>
+<%- include("partials/alerts") %>
 
 <!-- sucess msg validation -->
 

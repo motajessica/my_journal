@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const { validationResult } = require('express-validator');
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const getDate = require('../helpers/dateHelper');
-
-const Post = require("../models/post")
+const {Post, postValidations} = require("../models/post")
 
   // INDEX HOME
 router.get("/", async function(req, res){
@@ -35,6 +35,7 @@ router.get("/compose", function(req, res){
   } else {
     res.render("compose", {
       isAuthenticated: req.isAuthenticated(),
+      flash: {},
       postTitle: null,
       postBody: null,
       postId: null
@@ -43,7 +44,8 @@ router.get("/compose", function(req, res){
 });
   
   // CREATE
-router.post("/compose", function(req, res){
+  
+router.post("/compose", postValidations, function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
@@ -53,12 +55,27 @@ router.post("/compose", function(req, res){
       content: req.body.postBody,
       userId: req.user.id
     });
-    post.save(function(err){
-       if (!err){
-        req.flash('success','Your message has been saved!');
-        res.redirect("/");
-       };
-     });
+      post.save(function(err){
+        let errors = validationResult(req) 
+
+        if(!errors.isEmpty()) {
+          errors = errors.array().map(function(obj) {
+            return obj.msg
+          })
+        
+            const flash = {error: errors}
+            res.render('compose', {
+            flash,
+            isAuthenticated: req.isAuthenticated(),
+            postTitle: post.postTitle,
+            postBody: post.postBody,
+            postId: post.id
+            });   
+          } else { 
+            req.flash('success','Your post has been created!');
+            res.redirect("/");  
+        }
+      });
   };
 });
   
