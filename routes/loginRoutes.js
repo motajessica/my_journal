@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 const flash = require('connect-flash');
 
-
 router.get("/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
 );
@@ -15,11 +14,7 @@ router.get("/auth/google/myjournal", passport.authenticate("google", { failureRe
 });
 
 router.get("/login", function(req, res){
-  const error = req.flash('error')
-  const alert = (error || []).map((message) => {
-    return {msg: message}
-  });
-  res.render("login", {alert, isAuthenticated: req.isAuthenticated()});
+  res.render("login", {isAuthenticated: req.isAuthenticated(), flash: req.flash()});
 });
 
 router.get("/logout", function(req, res){
@@ -31,7 +26,7 @@ router.get("/logout", function(req, res){
 
 const authenticate =  passport.authenticate('local', {
   failureRedirect: '/login',
-  failureFlash: 'Invalid username or password.',
+  failureFlash: 'Invalid username or password!',
   successRedirect: '/', 
   successFlash: 'Success login'
 });
