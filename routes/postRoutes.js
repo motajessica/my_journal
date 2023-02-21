@@ -55,26 +55,33 @@ router.post("/compose", postValidations, function(req, res){
       content: req.body.content,
       userId: req.user.id
     });
-      post.save(function(err){
-        let errors = validationResult(req) 
-       
-        if(!errors.isEmpty()) {
-          errors = errors.array().map(function(obj) {
-            return obj.msg
-          });
-          const flash = {error: errors}
-          res.render('compose', {
-          flash,
-          isAuthenticated: req.isAuthenticated(),
-          title: post.title,
-          content: post.content,
-          id: post.id
-          });   
-        } else { 
-          req.flash('success','Your post has been created!');
-          res.redirect("/");  
-        }
+
+    //maybe add the if else here to post the content if there is an error// 
+    
+    let errors = validationResult(req) 
+    
+    if(!errors.isEmpty()) {
+      errors = errors.array().map(function(obj) {
+        return obj.msg
       });
+      const flash = {error: errors}
+      res.render('compose', {
+        flash,
+        isAuthenticated: req.isAuthenticated(),
+        title: post.title,
+        content: post.content,
+        id: post.id
+      });  
+    } else { 
+      post.save(function(err){
+        if (err) {
+          req.flash('error', err.message); 
+        } else {
+          req.flash('success','Your post has been created!');
+        }
+        res.redirect("/");
+      })
+    } 
   };
 });
   
