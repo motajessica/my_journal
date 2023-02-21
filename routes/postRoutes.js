@@ -122,7 +122,7 @@ router.post("/posts/:id/update", function(req, res){
     res.redirect("/welcome")
   } else {
     const filter = {_id: req.body.id};
-    const update = {title: req.body.title, content: req.body.body}
+    const update = {title: req.body.title, content: req.body.content}
     Post.findOneAndUpdate(filter, update, function(err, post){
       console.log(post);
       if (err){
