@@ -55,9 +55,7 @@ router.post("/compose", postValidations, function(req, res){
       content: req.body.content,
       userId: req.user.id
     });
-
-    //maybe add the if else here to post the content if there is an error// 
-    
+        
     let errors = validationResult(req) 
     
     if(!errors.isEmpty()) {
@@ -113,7 +111,7 @@ router.get("/posts/:id/edit", function(req, res){
       console.log(post);
         res.render("edit", {
           title: post.title,
-          body: post.content,
+          content: post.content,
           isAuthenticated: req.isAuthenticated(),
           id: post.id
         });
