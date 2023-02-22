@@ -41,7 +41,7 @@ function(accessToken, refreshToken, profile, cb) {
 
 // GET /register
 router.get ("/register", function(req, res){
-  res.render("register", { isAuthenticated: req.isAuthenticated(), form: {}});
+  res.render("register", {flash: req.flash(), isAuthenticated: req.isAuthenticated(), form: {}});
 });
   
 const registerChecks = [
@@ -56,14 +56,13 @@ router.post("/register", urlencodedParser, registerChecks,
   async (req, res)=> {
     const userExists = await User.exists({username: req.body.username});
     if (userExists) {
-      const alert = [{msg: "This email is already in use"}]
-      res.render('register', {alert, isAuthenticated: false, form: req.body});
+      res.render('register', {flash: {error: ["This email is already in use"]}, isAuthenticated: false, form: req.body});
     } else {
       User.register({username: req.body.username}, req.body.password, function(err, user){
         const errors = validationResult(req) 
         if(!errors.isEmpty()) {
-            const alert = errors.array()
-            res.render('register', {alert, isAuthenticated: false, form: req.body});
+            const flash = {error: errors.array()}
+            res.render('register', {flash, isAuthenticated: false, form: req.body});
         } else {
           passport.authenticate("local")(req, res, function(){
             res.redirect("/");
@@ -73,6 +72,5 @@ router.post("/register", urlencodedParser, registerChecks,
     }
   }
 );
-
 
 module.exports = router;  
