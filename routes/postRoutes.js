@@ -29,11 +29,11 @@ router.get("/welcome", function(req, res){
 });
   
   // NEW
-router.get("/compose", function(req, res){
+router.get("/new", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
-    res.render("compose", {
+    res.render("new", {
       isAuthenticated: req.isAuthenticated(),
       flash: {},
       title: null,
@@ -45,7 +45,7 @@ router.get("/compose", function(req, res){
   
   // CREATE
   
-router.post("/compose", postValidations, function(req, res){
+router.post("/posts", postValidations, function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
@@ -63,7 +63,7 @@ router.post("/compose", postValidations, function(req, res){
         return obj.msg
       });
       const flash = {error: errors}
-      res.render('compose', {
+      res.render('new', {
         flash,
         isAuthenticated: req.isAuthenticated(),
         title: post.title,
@@ -89,7 +89,7 @@ router.get("/posts/:id", function(req, res){
     const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
-        res.render("post", {
+        res.render("show", {
           title: _.capitalize(post.title),
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
