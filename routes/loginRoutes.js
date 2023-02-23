@@ -7,10 +7,10 @@ router.get("/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
 );
 
-router.get("/auth/google/myjournal", passport.authenticate("google", { failureRedirect: "/welcome" }),
+router.get("/auth/google/myjournal", passport.authenticate("google", { failureRedirect: "/" }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/");
+    res.redirect("/posts");
 });
 
 router.get("/login", function(req, res){
@@ -20,14 +20,14 @@ router.get("/login", function(req, res){
 router.get("/logout", function(req, res){
   req.logout(function(err) {
     if (err) { return next(err); }
-    res.redirect("/");
+    res.redirect("/posts");
   });
 });
 
 const authenticate =  passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Invalid username or password!',
-  successRedirect: '/', 
+  successRedirect: '/posts', 
   successFlash: 'Success login'
 });
 

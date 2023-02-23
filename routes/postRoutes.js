@@ -6,8 +6,8 @@ const _ = require("lodash");
 const getDate = require('../helpers/dateHelper');
 const {Post, postValidations} = require("../models/post")
 
-  // INDEX HOME
-router.get("/", async function(req, res){
+  // INDEX 
+router.get("/posts", async function(req, res){
  
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
@@ -21,17 +21,14 @@ router.get("/", async function(req, res){
       flash: req.flash()
     });
   } else {
-    res.redirect("welcome");
+    res.redirect("/");
   }
-});
-router.get("/welcome", function(req, res){
-  res.render("welcome", { isAuthenticated: req.isAuthenticated()});
 });
   
 // NEW
 router.get("/new", function(req, res){
   if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
+    res.redirect("/")
   } else {
     res.render("posts/new", {
       isAuthenticated: req.isAuthenticated(),
@@ -47,7 +44,7 @@ router.get("/new", function(req, res){
   
 router.post("/posts", postValidations, function(req, res){
   if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
+    res.redirect("/")
   } else {
     console.log(req.body)
     const post = new Post ({
@@ -77,7 +74,7 @@ router.post("/posts", postValidations, function(req, res){
         } else {
           req.flash('success','Your post has been created!');
         }
-        res.redirect("/");
+        res.redirect("/posts");
       })
     } 
   };
@@ -99,7 +96,7 @@ router.get("/posts/:id", function(req, res){
         });
     });
   } else {
-    res.redirect("/welcome");
+    res.redirect("/");
   };
 });
   
@@ -117,14 +114,14 @@ router.get("/posts/:id/edit", function(req, res){
         });
     });
   } else {
-    res.redirect("/welcome");
+    res.redirect("/");
   };
 });
 
 //  UPDATE
 router.post("/posts/:id/update", function(req, res){
   if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
+    res.redirect("/")
   } else {
     const filter = {_id: req.body.id};
     const update = {title: req.body.title, content: req.body.content}
@@ -153,11 +150,11 @@ router.post("/posts/:id", function(req, res){
         });
       } else {
           req.flash('success','Your message has been deleted!');
-          return res.redirect("/")
+          return res.redirect("/posts")
       }
     });
   } else {
-    res.redirect("/welcome");
+    res.redirect("/");
   }
 });
 
