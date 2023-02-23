@@ -24,17 +24,17 @@
       </button>
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav ms-auto ms-auto mb-2 mb-lg-0">
-          <li class="nav-item" id="home"><a class="nav-link" href="/posts">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="/posts">HOME</a></li>
           <% if (isAuthenticated){ %>
-            <li class="nav-item"  id="new"><a class="nav-link" href="/new">COMPOSE</a></li>
+            <li class="nav-item"><a class="nav-link" href="/new">COMPOSE</a></li>
           <%  } %>
-          <li class="nav-item"  id="about"><a class="nav-link" href="/about">ABOUT US</a></li>
-         <li class="nav-item"  id="contact"><a class="nav-link" href="/contact">CONTACT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">ABOUT US</a></li>
+         <li class="nav-item"><a class="nav-link" href="/contact">CONTACT US</a></li>
           <% if (isAuthenticated){ %>
-            <li class="nav-item"  id="logout"><a class="nav-link" href="/logout">LOGOUT</a></li>
+            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
           <% } else { %>
-            <li class="nav-item"   id="register"><a class="nav-link" href="/register">REGISTER</a></li>
-            <li class="nav-item"  id="login"><a class="nav-link" href="/login">LOGIN</a></li>
+            <li class="nav-item"><a class="nav-link" href="/register">REGISTER</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login">LOGIN</a></li>
           <%  } %>
        </ul>
       </div>       
