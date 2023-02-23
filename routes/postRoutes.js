@@ -33,7 +33,7 @@ router.get("/new", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
   } else {
-    res.render("new", {
+    res.render("posts/new", {
       isAuthenticated: req.isAuthenticated(),
       flash: {},
       title: null,
@@ -63,7 +63,7 @@ router.post("/posts", postValidations, function(req, res){
         return obj.msg
       });
       const flash = {error: errors}
-      res.render('new', {
+      res.render('posts/new', {
         flash,
         isAuthenticated: req.isAuthenticated(),
         title: post.title,
@@ -109,7 +109,7 @@ router.get("/posts/:id/edit", function(req, res){
     const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
-        res.render("edit", {
+        res.render("posts/edit", {
           title: post.title,
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
@@ -131,7 +131,7 @@ router.post("/posts/:id/update", function(req, res){
     Post.findOneAndUpdate(filter, update, function(err, post){
       console.log(post);
       if (err){
-        res.render("edit");
+        res.render("/posts/edit");
       } else {
         req.flash('success','Your message has been edited!');
         res.redirect(`/posts/${post._id}`);

@@ -1,12 +1,12 @@
-<%- include("partials/header"); -%>
+<%- include("../partials/header"); -%>
 <div class="mt-2 my-5 container max-700">
     <div class="row mb-2">
         <div class="col">
             <h1 class="titles my-3 my-md-5">Edit Entry</h1>
             <form class="new container" action="/posts/<%= id %>/update" method="POST">
-                <%- include("partials/formFields"); -%>
+                <%- include("formFields"); -%>
             </form>
         </div>
     </div>
 </div>
-<%- include("partials/footer"); -%>
+<%- include("../partials/footer"); -%>
