@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const getDate = require('../helpers/dateHelper');
 const {Post, postValidations} = require("../models/post")
+const postsController= require("../controllers/postsController"); 
 
   // INDEX 
 router.get("/posts", async function(req, res){
@@ -26,21 +27,10 @@ router.get("/posts", async function(req, res){
 });
   
 // NEW
-router.get("/new", function(req, res){
-  if(req.isUnauthenticated()) {
-    res.redirect("/")
-  } else {
-    res.render("posts/new", {
-      isAuthenticated: req.isAuthenticated(),
-      flash: {},
-      title: null,
-      content: null,
-      id: null
-    });
-  }
-});
+
+router.get("/new", postsController.newPost);
   
-  // CREATE
+// CREATE
   
 router.post("/posts", postValidations, function(req, res){
   if(req.isUnauthenticated()) {
