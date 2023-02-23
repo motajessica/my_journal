@@ -28,7 +28,7 @@ router.get("/welcome", function(req, res){
   res.render("welcome", { isAuthenticated: req.isAuthenticated()});
 });
   
-  // NEW
+// NEW
 router.get("/new", function(req, res){
   if(req.isUnauthenticated()) {
     res.redirect("/welcome")
@@ -89,7 +89,7 @@ router.get("/posts/:id", function(req, res){
     const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
-        res.render("show", {
+        res.render("posts/show", {
           title: _.capitalize(post.title),
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
