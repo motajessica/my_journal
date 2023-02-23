@@ -1,4 +1,4 @@
-<%- include("partials/header"); -%>
+<%- include("../partials/header"); -%>
 
 <div class="mt-2 mb-5 container max-700">
     <div class="row mb-2">
@@ -11,7 +11,7 @@
             <h1 class="titles">Home</h1>
         </div>
     </div>
-    <%- include("partials/alerts") %> 
+    <%- include("../partials/alerts") %> 
     <% if (posts.length === 0){ %>
         <div class="row">
             <div class="col empty-home justify-content-center" >
@@ -48,4 +48,4 @@
     <% } %>
 </div>
         
-<%- include("partials/footer"); -%>
+<%- include("../partials/footer"); -%>

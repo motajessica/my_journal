@@ -14,7 +14,7 @@ router.get("/", async function(req, res){
     posts.forEach(function(post){
       post.title = _.capitalize(post.title)
     });
-    res.render("home",{
+    res.render("posts/index",{
       posts: posts.reverse(),
       isAuthenticated: req.isAuthenticated(),
       today: getDate(),
