@@ -65,7 +65,7 @@ router.post("/register", urlencodedParser, registerChecks,
             res.render('register', {flash, isAuthenticated: false, form: req.body});
         } else {
           passport.authenticate("local")(req, res, function(){
-            res.redirect("/");
+            res.redirect("/posts");
           });
         }
       });

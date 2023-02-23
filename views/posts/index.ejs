@@ -1,9 +1,9 @@
-<%- include("partials/header"); -%>
+<%- include("../partials/header"); -%>
 
 <div class="mt-2 mb-5 container max-700">
     <div class="row mb-2">
         <div class="col d-flex justify-content-start">
-            <a class="link" href="/compose">+ Compose</a>
+            <a class="link" href="/new">+ Compose</a>
         </div>
       </div> 
     <div class="row">
@@ -11,12 +11,12 @@
             <h1 class="titles">Home</h1>
         </div>
     </div>
-    <%- include("partials/alerts") %> 
+    <%- include("../partials/alerts") %> 
     <% if (posts.length === 0){ %>
         <div class="row">
             <div class="col empty-home justify-content-center" >
                 Your journal is empty. Add your daily notes           
-                <a class="link empty-home-link text-decoration-underline" href="/compose"> 
+                <a class="link empty-home-link text-decoration-underline" href="/new"> 
                    Here <i class="fa-solid fa-feather"></i> 
                 </a>
             </div>
@@ -48,4 +48,4 @@
     <% } %>
 </div>
         
-<%- include("partials/footer"); -%>
+<%- include("../partials/footer"); -%>

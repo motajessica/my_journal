@@ -6,34 +6,31 @@ const _ = require("lodash");
 const getDate = require('../helpers/dateHelper');
 const {Post, postValidations} = require("../models/post")
 
-  // INDEX HOME
-router.get("/", async function(req, res){
+  // INDEX 
+router.get("/posts", async function(req, res){
  
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
     posts.forEach(function(post){
       post.title = _.capitalize(post.title)
     });
-    res.render("home",{
+    res.render("posts/index",{
       posts: posts.reverse(),
       isAuthenticated: req.isAuthenticated(),
       today: getDate(),
       flash: req.flash()
     });
   } else {
-    res.redirect("welcome");
+    res.redirect("/");
   }
 });
-router.get("/welcome", function(req, res){
-  res.render("welcome", { isAuthenticated: req.isAuthenticated()});
-});
   
-  // NEW
-router.get("/compose", function(req, res){
+// NEW
+router.get("/new", function(req, res){
   if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
+    res.redirect("/")
   } else {
-    res.render("compose", {
+    res.render("posts/new", {
       isAuthenticated: req.isAuthenticated(),
       flash: {},
       title: null,
@@ -45,9 +42,9 @@ router.get("/compose", function(req, res){
   
   // CREATE
   
-router.post("/compose", postValidations, function(req, res){
+router.post("/posts", postValidations, function(req, res){
   if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
+    res.redirect("/")
   } else {
     console.log(req.body)
     const post = new Post ({
@@ -63,7 +60,7 @@ router.post("/compose", postValidations, function(req, res){
         return obj.msg
       });
       const flash = {error: errors}
-      res.render('compose', {
+      res.render('posts/new', {
         flash,
         isAuthenticated: req.isAuthenticated(),
         title: post.title,
@@ -77,7 +74,7 @@ router.post("/compose", postValidations, function(req, res){
         } else {
           req.flash('success','Your post has been created!');
         }
-        res.redirect("/");
+        res.redirect("/posts");
       })
     } 
   };
@@ -89,7 +86,7 @@ router.get("/posts/:id", function(req, res){
     const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
-        res.render("post", {
+        res.render("posts/show", {
           title: _.capitalize(post.title),
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
@@ -99,7 +96,7 @@ router.get("/posts/:id", function(req, res){
         });
     });
   } else {
-    res.redirect("/welcome");
+    res.redirect("/");
   };
 });
   
@@ -109,7 +106,7 @@ router.get("/posts/:id/edit", function(req, res){
     const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
       console.log(post);
-        res.render("edit", {
+        res.render("posts/edit", {
           title: post.title,
           content: post.content,
           isAuthenticated: req.isAuthenticated(),
@@ -117,21 +114,21 @@ router.get("/posts/:id/edit", function(req, res){
         });
     });
   } else {
-    res.redirect("/welcome");
+    res.redirect("/");
   };
 });
 
 //  UPDATE
 router.post("/posts/:id/update", function(req, res){
   if(req.isUnauthenticated()) {
-    res.redirect("/welcome")
+    res.redirect("/")
   } else {
     const filter = {_id: req.body.id};
     const update = {title: req.body.title, content: req.body.content}
     Post.findOneAndUpdate(filter, update, function(err, post){
       console.log(post);
       if (err){
-        res.render("edit");
+        res.render("/posts/edit");
       } else {
         req.flash('success','Your message has been edited!');
         res.redirect(`/posts/${post._id}`);
@@ -153,11 +150,11 @@ router.post("/posts/:id", function(req, res){
         });
       } else {
           req.flash('success','Your message has been deleted!');
-          return res.redirect("/")
+          return res.redirect("/posts")
       }
     });
   } else {
-    res.redirect("/welcome");
+    res.redirect("/");
   }
 });
 
