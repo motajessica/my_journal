@@ -1,6 +1,8 @@
 const {Post, postValidations} = require("../models/post")
 const _ = require("lodash");
-const getDate = require('../helpers/dateHelper');
+const getDate = require('../helpers/dateHelper'); 
+const { validationResult } = require('express-validator');
+
 
 //Index
 const index = async function(req, res) {
@@ -36,6 +38,43 @@ const compose = function(req, res) {
 }
 
 //Create 
+const create = function(req, res) {
+if(req.isUnauthenticated()) {
+    res.redirect("/")
+  } else {
+    console.log(req.body)
+    const post = new Post ({
+      title: req.body.title,
+      content: req.body.content,
+      userId: req.user.id
+    });
+        
+    let errors = validationResult(req) 
+    
+    if(!errors.isEmpty()) {
+      errors = errors.array().map(function(obj) {
+        return obj.msg
+      });
+      const flash = {error: errors}
+      res.render('posts/new', {
+        flash,
+        isAuthenticated: req.isAuthenticated(),
+        title: post.title,
+        content: post.content,
+        id: post.id
+      });  
+    } else { 
+      post.save(function(err){
+        if (err) {
+          req.flash('error', err.message); 
+        } else {
+          req.flash('success','Your post has been created!');
+        }
+        res.redirect("/posts");
+      })
+    } 
+  };
+}
 
 //Show
 const show = function(req, res) {
@@ -115,5 +154,5 @@ const destroy = function(req, res) {
       }
 }
 
-module.exports = {index, compose, show, edit, update, destroy} 
+module.exports = {index, compose, create, show, edit, update, destroy} 
   

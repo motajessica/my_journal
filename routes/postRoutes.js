@@ -17,43 +17,7 @@ router.get("/posts", postsController.index);
 router.get("/new", postsController.compose);
   
 // Create 
-router.post("/posts", postValidations, function(req, res){
-  if(req.isUnauthenticated()) {
-    res.redirect("/")
-  } else {
-    console.log(req.body)
-    const post = new Post ({
-      title: req.body.title,
-      content: req.body.content,
-      userId: req.user.id
-    });
-        
-    let errors = validationResult(req) 
-    
-    if(!errors.isEmpty()) {
-      errors = errors.array().map(function(obj) {
-        return obj.msg
-      });
-      const flash = {error: errors}
-      res.render('posts/new', {
-        flash,
-        isAuthenticated: req.isAuthenticated(),
-        title: post.title,
-        content: post.content,
-        id: post.id
-      });  
-    } else { 
-      post.save(function(err){
-        if (err) {
-          req.flash('error', err.message); 
-        } else {
-          req.flash('success','Your post has been created!');
-        }
-        res.redirect("/posts");
-      })
-    } 
-  };
-});
+router.post("/posts", postValidations, postsController.create)
   
   // SHOW
 router.get("/posts/:id", postsController.show)
@@ -68,4 +32,3 @@ router.post("/posts/:id/update", postsController.update);
 router.post("/posts/:id", postsController.destroy)
 
 module.exports = router;  
-
