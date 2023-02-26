@@ -1,10 +1,8 @@
-const {Post, postValidations} = require("../models/post")
+const {Post} = require("../models/post")
 const _ = require("lodash");
 const getDate = require('../helpers/dateHelper'); 
 const { validationResult } = require('express-validator');
 
-
-//Index
 const index = async function(req, res) {
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
@@ -27,11 +25,11 @@ const compose = function(req, res) {
     res.redirect("/")
   } else {
     res.render("posts/new", {
-    isAuthenticated: req.isAuthenticated(),
-    flash: {},
-    title: null,
-    content: null,
-    id: null
+      isAuthenticated: req.isAuthenticated(),
+      flash: {},
+      title: null,
+      content: null,
+      id: null
     });
   };
 }
