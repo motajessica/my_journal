@@ -11,10 +11,10 @@ const {Post, postValidations} = require("../models/post")
 const postsController= require("../controllers/postsController"); 
 
   // Index 
-router.get("/posts", postsController.cPosts);
+router.get("/posts", postsController.index);
    
 // New
-router.get("/new", postsController.newPost);
+router.get("/new", postsController.compose);
   
 // Create 
 router.post("/posts", postValidations, function(req, res){
@@ -56,17 +56,16 @@ router.post("/posts", postValidations, function(req, res){
 });
   
   // SHOW
-router.get("/posts/:id", postsController.showPost)
+router.get("/posts/:id", postsController.show)
 
 // EDIT
-router.get("/posts/:id/edit", postsController.editPost)
-
+router.get("/posts/:id/edit", postsController.edit)
 
 //  UPDATE
-router.post("/posts/:id/update", postsController.updatePost);
+router.post("/posts/:id/update", postsController.update);
   
 //  DELETE
-router.post("/posts/:id", postsController.deletePost)
+router.post("/posts/:id", postsController.destroy)
 
 module.exports = router;  
 

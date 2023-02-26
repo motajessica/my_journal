@@ -3,7 +3,7 @@ const _ = require("lodash");
 const getDate = require('../helpers/dateHelper');
 
 //Index
-const cPosts = async function(req, res) {
+const index = async function(req, res) {
     if (req.isAuthenticated()){
         let posts = await Post.find({userId: req.user.id})
         posts.forEach(function(post){
@@ -21,7 +21,7 @@ const cPosts = async function(req, res) {
 }; 
 
 //New
-const newPost = function(req, res) {
+const compose = function(req, res) {
     if(req.isUnauthenticated()) {
         res.redirect("/")
     } else {
@@ -38,7 +38,7 @@ const newPost = function(req, res) {
 //Create 
 
 //Show
-const showPost = function(req, res) {
+const show = function(req, res) {
     if (req.isAuthenticated()){
         const requestedPostId = req.params.id;
         Post.findOne({_id:requestedPostId}, function(err, post){
@@ -58,7 +58,7 @@ const showPost = function(req, res) {
 }
 
 //Edit
-const editPost = function(req, res) {
+const edit = function(req, res) {
     if (req.isAuthenticated()){
         const requestedPostId = req.params.id;
         Post.findOne({_id:requestedPostId}, function(err, post){
@@ -76,7 +76,7 @@ const editPost = function(req, res) {
 }
 
 //Update
-const updatePost = function(req, res) {
+const update = function(req, res) {
     if(req.isUnauthenticated()) {
         res.redirect("/")
       } else {
@@ -94,9 +94,8 @@ const updatePost = function(req, res) {
       };
 }
 
-
 //Delete 
-const deletePost = function(req, res) {
+const destroy = function(req, res) {
     if (req.isAuthenticated()){
         const requestedPostId = req.params.id;
         Post.findByIdAndRemove({_id:requestedPostId}, function(err, post){
@@ -116,7 +115,5 @@ const deletePost = function(req, res) {
       }
 }
 
-
- 
-module.exports = {cPosts, newPost, showPost, editPost, updatePost, deletePost} 
+module.exports = {index, compose, show, edit, update, destroy} 
   
