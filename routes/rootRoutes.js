@@ -9,4 +9,18 @@ router.get("/", function(req, res){
     }
 });
 
+
+router.get("/about", function(req, res){
+  res.render("about", {
+    isAuthenticated: req.isAuthenticated()
+  });
+});
+
+
+router.get("/contact", function(req, res){
+    res.render("contact", {
+      isAuthenticated: req.isAuthenticated()
+    });
+  });
+
 module.exports = router; 

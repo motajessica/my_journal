@@ -7,8 +7,8 @@ const passport = require("passport");
 const flash = require('connect-flash');
 
 const rootRoutes = require("./routes/rootRoutes");
-const aboutRoutes = require("./routes/about");
-const contactRoutes = require("./routes/contactRoutes");
+const aboutRoutes = require("./routes/rootRoutes");
+const contactRoutes = require("./routes/rootRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const registerRoutes = require("./routes/registerRoutes");
 const postRoutes = require("./routes/postRoutes");
