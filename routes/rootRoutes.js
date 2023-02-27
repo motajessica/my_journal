@@ -1,24 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const rootController= require("../controllers/rootController");  
 
-router.get("/", function(req, res){
-    if (req.isAuthenticated()){
-        res.redirect("/posts") 
-    } else {
-        res.render("welcome", { isAuthenticated: req.isAuthenticated()});
-    }
-});
+router.get("/", rootController.welcome )
 
-router.get("/about", function(req, res){
-  res.render("about", {
-    isAuthenticated: req.isAuthenticated()
-  });
-});
+router.get("/about", rootController.about)
 
-router.get("/contact", function(req, res){
-    res.render("contact", {
-      isAuthenticated: req.isAuthenticated()
-    });
-  });
+router.get("/contact", rootController.contact )
 
-module.exports = router; 
+module.exports = router; t
