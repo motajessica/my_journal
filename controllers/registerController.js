@@ -4,7 +4,6 @@ const User = require("../models/user")
 const { check, validationResult } = require('express-validator')
 const passport = require("passport");
 
-
 const newRegister = function(req, res) {
   res.render("register", {flash: req.flash(), isAuthenticated: req.isAuthenticated(), form: {}});
 };
@@ -26,6 +25,6 @@ const createRegister =  async (req, res)=> {
         }
       });
     }
-  }
+  };
 
 module.exports = {newRegister, createRegister}

@@ -1,12 +1,11 @@
 const express = require("express");
 
-
 const welcome = function(req, res){
-    if (req.isAuthenticated()){
-        res.redirect("/posts") 
-    } else {
-        res.render("welcome", { isAuthenticated: req.isAuthenticated()});
-    }
+  if (req.isAuthenticated()){
+    res.redirect("/posts") 
+  } else {
+    res.render("welcome", { isAuthenticated: req.isAuthenticated()});
+  }
 };
 
 const contact = function(req, res){
@@ -16,9 +15,9 @@ const contact = function(req, res){
 };
  
 const about = function(req, res){
-    res.render("contact", {
-      isAuthenticated: req.isAuthenticated()
-    });
+  res.render("contact", {
+    isAuthenticated: req.isAuthenticated()
+  });
   };
 
 module.exports = {welcome, contact, about}
