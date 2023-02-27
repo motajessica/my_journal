@@ -18,6 +18,6 @@ const about = function(req, res){
   res.render("contact", {
     isAuthenticated: req.isAuthenticated()
   });
-  };
+};
 
 module.exports = {welcome, contact, about}
