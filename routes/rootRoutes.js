@@ -8,4 +8,4 @@ router.get("/about", rootController.about)
 
 router.get("/contact", rootController.contact )
 
-module.exports = router; t
+module.exports = router;

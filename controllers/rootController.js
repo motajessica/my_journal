@@ -9,7 +9,6 @@ const welcome = function(req, res){
     }
 };
 
-
 const contact = function(req, res){
   res.render("about", {
     isAuthenticated: req.isAuthenticated()
