@@ -152,6 +152,13 @@ color: white ;
 }
 
 .link {
+  font-size: 1rem;
+  font-family:'Montserrat', sans-serif; 
+  text-decoration: none;
+  color: black;
+}
+
+.readmore { 
   font-size: 0.8rem;
   font-family:'Montserrat', sans-serif; 
   text-decoration: none;
