@@ -15,7 +15,7 @@ router.get("/posts/:id", postsController.show)
 
 router.get("/posts/:id/edit", postsController.edit)
 
-router.post("/posts/:id/update", postsController.update);
+router.post("/posts/:id/update", postValidations, postsController.update);
   
 router.post("/posts/:id", postsController.destroy)
 
