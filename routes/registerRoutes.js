@@ -5,7 +5,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const router = express.Router();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
+const registerController= require("../controllers/registerController");  
 const User = require("../models/user")
 
 passport.use(User.createStrategy());
@@ -39,10 +39,7 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
-// GET /register
-router.get ("/register", function(req, res){
-  res.render("register", {flash: req.flash(), isAuthenticated: req.isAuthenticated(), form: {}});
-});
+router.get ("/register", registerController.newRegister)
   
 const registerChecks = [
   check("username", "Email is not valid").isEmail()
@@ -51,26 +48,6 @@ const registerChecks = [
     .isLength({ min: 3})
 ]
 
-// POST /register
-router.post("/register", urlencodedParser, registerChecks, 
-  async (req, res)=> {
-    const userExists = await User.exists({username: req.body.username});
-    if (userExists) {
-      res.render('register', {flash: {error: ["This email is already in use"]}, isAuthenticated: false, form: req.body});
-    } else {
-      User.register({username: req.body.username}, req.body.password, function(err, user){
-        const errors = validationResult(req) 
-        if(!errors.isEmpty()) {
-            const flash = {error: errors.array()}
-            res.render('register', {flash, isAuthenticated: false, form: req.body});
-        } else {
-          passport.authenticate("local")(req, res, function(){
-            res.redirect("/posts");
-          });
-        }
-      });
-    }
-  }
-);
+router.post("/register", urlencodedParser, registerChecks, registerController.createRegister );
 
 module.exports = router;  
