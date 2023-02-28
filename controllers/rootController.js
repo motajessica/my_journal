@@ -4,7 +4,7 @@ const welcome = function(req, res){
   if (req.isAuthenticated()){
     res.redirect("/posts") 
   } else {
-    res.render("welcome", { isAuthenticated: req.isAuthenticated()});
+    res.render("welcome", {isAuthenticated: req.isAuthenticated()});
   }
 };
 

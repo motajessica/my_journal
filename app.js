@@ -7,8 +7,6 @@ const passport = require("passport");
 const flash = require('connect-flash');
 
 const rootRoutes = require("./routes/rootRoutes");
-const aboutRoutes = require("./routes/rootRoutes");
-const contactRoutes = require("./routes/rootRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const registerRoutes = require("./routes/registerRoutes");
 const postRoutes = require("./routes/postRoutes");
@@ -31,8 +29,6 @@ app.use(passport.session());
 app.use(flash());
 app.use('/', rootRoutes);
 app.use('/', registerRoutes);
-app.use('/', aboutRoutes);
-app.use('/', contactRoutes);
 app.use('/', loginRoutes);
 app.use('/', postRoutes);
 
