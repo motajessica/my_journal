@@ -94,15 +94,13 @@ const edit = function(req, res) {
   if (req.isAuthenticated()){
     const requestedPostId = req.params.id;
     Post.findOne({_id:requestedPostId}, function(err, post){
-      console.log(post);
-
-        res.render("posts/edit", {
-          flash: {},
-          title: post.title,
-          content: post.content,
-          isAuthenticated: req.isAuthenticated(),
-          id: post.id
-        });
+      res.render("posts/edit", {
+        flash: {},
+        title: post.title,
+        content: post.content,
+        isAuthenticated: req.isAuthenticated(),
+        id: post.id
+      });
     });
   } else {
     res.redirect("/");
