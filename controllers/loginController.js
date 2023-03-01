@@ -10,7 +10,7 @@ const logout = (req, res) => req.logout((err) => {
   res.redirect("/");
 });
 
-const authentication = function(req, res) {
+const authentication = (req, res) => {
   res.redirect("/posts");
 }
 
