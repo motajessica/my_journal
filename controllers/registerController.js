@@ -16,13 +16,13 @@ const createRegister =  async (req, res)=> {
   if (userExists) {
     res.render('register', {flash: {error: ["This email is already in use"]}, isAuthenticated: false, form: req.body});
   } else {
-    User.register({username: req.body.username}, req.body.password, function(err, user){
+    User.register({username: req.body.username}, req.body.password, (err, user) => {
       const errors = validationResult(req) 
       if(!errors.isEmpty()) {
         const flash = {error: errors.array()}
         res.render('register', {flash, isAuthenticated: false, form: req.body});
       } else {
-        passport.authenticate("local")(req, res, function(){
+        passport.authenticate("local")(req, res, () => {
           res.redirect("/posts");
         });
       }

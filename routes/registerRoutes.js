@@ -9,8 +9,8 @@ const registerController= require("../controllers/registerController");
 const User = require("../models/user")
 
 passport.use(User.createStrategy());
-passport.serializeUser(function(user, cb) {
-  process.nextTick(function() {
+passport.serializeUser((user, cb) => {
+  process.nextTick(() => {
     return cb(null, {
       id: user.id,
       username: user.username,
@@ -19,8 +19,8 @@ passport.serializeUser(function(user, cb) {
   });
 });
 
-passport.deserializeUser(function(user, cb) {
-  process.nextTick(function() {
+passport.deserializeUser((user, cb) => {
+  process.nextTick(() => {
     return cb(null, user);
   });
 });
@@ -31,9 +31,9 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: "http://localhost:3000/auth/google/myjournal"
 },
-function(accessToken, refreshToken, profile, cb) {
+(accessToken, refreshToken, profile, cb) => {
   console.log(profile);
-  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+  User.findOrCreate({ googleId: profile.id }, (err, user) => {
     return cb(err, user);
   });
 }
