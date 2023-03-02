@@ -142,7 +142,7 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   if (req.isAuthenticated()){
     const requestedPostId = req.params.id;
-    Post.findByIdAndRemove({_id:requestedPostId}, function(err, post){
+    Post.findByIdAndRemove({_id:requestedPostId}, (err, post) => {
       if(!!err) {
         res.render("post", {
           title: post.title,
