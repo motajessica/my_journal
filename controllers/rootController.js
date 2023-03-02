@@ -8,12 +8,16 @@ const welcome = (req, res) => {
   }
 };
 
-const contact = (req, res) => res.render("contact", {
+const contact = (req, res) => {
+  res.render("contact", {
   isAuthenticated: req.isAuthenticated()
-});
+  });
+}
 
-const about = (req, res) => res.render("about", {
+const about = (req, res) => { 
+  res.render("about", {
   isAuthenticated: req.isAuthenticated()
-});
+  });
+}
 
 module.exports = {welcome, contact, about}

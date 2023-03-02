@@ -1,9 +1,11 @@
 const express = require("express");
 
-const login = (req, res) => res.render("login", {
-  isAuthenticated: req.isAuthenticated(), 
-  flash: req.flash()
-});
+const login = (req, res) => {
+  res.render("login", {
+    isAuthenticated: req.isAuthenticated(),
+    flash: req.flash()
+  })
+}
 
 const logout = (req, res) => req.logout((err) => {
   if (err) { return next(err); }
