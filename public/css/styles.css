@@ -147,12 +147,16 @@ color: white ;
   color: white;
 }
 
-.readmore {
-  font-size: 12px;
-}
 
 .link {
-  font-size: 0.8rem;
+  font-size: 1rem;
+  font-family:'Montserrat', sans-serif; 
+  text-decoration: none;
+  color: black;
+}
+
+.bluelink { 
+  font-size: 0.7rem;
   font-family:'Montserrat', sans-serif; 
   text-decoration: none;
 }

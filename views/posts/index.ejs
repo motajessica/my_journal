@@ -3,7 +3,7 @@
 <div class="mt-2 mb-5 container max-700">
     <div class="row mb-2">
         <div class="col d-flex justify-content-start">
-            <a class="link" href="/new">+ Compose</a>
+            <a class="bluelink" href="/new">+ Compose</a>
         </div>
       </div> 
     <div class="row">
@@ -26,20 +26,30 @@
             <div class="col">
                 <div>
                     <% posts.forEach(function(post){ %>
-                        <a class="link" href="/posts/<%=post._id%>"><h3><%= post.title %></h3></a>
+                        <h3><%= post.title %></h3>
                         <p class="lastSeen">
                             Last edited: 
                             <%= new Date(post.updatedAt).toLocaleDateString(
                                 "en-US", 
                                 {weekday: "long",
-                                 day: "numeric",
-                                 month: "long", 
-                                 year: "numeric"}
+                                    day: "numeric",
+                                    month: "long", 
+                                    year: "numeric",
+                                    hour: "numeric",
+                                }
                             )%>
                         </p>
                         <p class="mb-5">
-                            <%=post.content.substring(0,200) + " ...   " %>
-                            <a class="link" href="/posts/<%=post._id%>">Read more</a>
+                        <% if (post.content.length > 30) { %> 
+                            <%=post.content.substring(0,30) + " ...   " %>
+                            <a class="bluelink" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
+                       
+                        <% } else { %>
+                            <%=post.content + " " %> 
+                            <a class="bluelink" href="/posts/<%=post._id%>"> 
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        <% } %>
                         </p>
                     <% }) %>
                 </div>
