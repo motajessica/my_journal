@@ -9,13 +9,13 @@ const welcome = function(req, res){
 };
 
 const contact = function(req, res){
-  res.render("about", {
+  res.render("contact", {
     isAuthenticated: req.isAuthenticated()
   });
 };
  
 const about = function(req, res){
-  res.render("contact", {
+  res.render("about", {
     isAuthenticated: req.isAuthenticated()
   });
 };

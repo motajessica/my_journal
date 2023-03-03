@@ -1,7 +1,7 @@
 <% if(msgs) { %> 
-    <div id="flash-message" class="msg-alert alert alert-<%- alertType %> alert-dismissible fade show text-center" role="alert">
+    <div id="flash-message" class="msg-alert alert alert-<%- alertType %> alert-dismissible fade show" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <div class="text-center">
+        <div class="">
         <% msgs.forEach(function(msg) { %>
             <div><%- msg %></div>
         <% }) %>
@@ -11,5 +11,5 @@
 <script>
     setTimeout(function() {
       document.getElementById('flash-message').style.display = 'none';
-    }, 5000);
+    }, 3000);
 </script>
