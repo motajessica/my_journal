@@ -1,20 +1,18 @@
 const express = require("express");
 
-const login = function(req, res){
+const login = (req, res) => {
   res.render("login", {
-    isAuthenticated: req.isAuthenticated(), 
+    isAuthenticated: req.isAuthenticated(),
     flash: req.flash()
-  });
-};
+  })
+}
 
-const logout = function(req, res){
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect("/");
-  });
-};
+const logout = (req, res) => req.logout((err) => {
+  if (err) { return next(err); }
+  res.redirect("/");
+});
 
-const authentication = function(req, res) {
+const authentication = (req, res) => {
   res.redirect("/posts");
 }
 

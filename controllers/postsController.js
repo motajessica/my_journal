@@ -4,10 +4,10 @@ const getDate = require('../helpers/dateHelper');
 const { validationResult } = require('express-validator');
 const { post } = require("../routes/postRoutes");
 
-const index = async function(req, res) {
+const index = async (req, res) => {
   if (req.isAuthenticated()){
     let posts = await Post.find({userId: req.user.id})
-    posts.forEach(function(post){
+    posts.forEach((post) => {
       post.title = _.capitalize(post.title)
     });
     res.render("posts/index",{
@@ -21,7 +21,7 @@ const index = async function(req, res) {
   }
 }; 
 
-const compose = function(req, res) {
+const compose = (req, res) => {
   if(req.isUnauthenticated()) {
     res.redirect("/")
   } else {
@@ -35,7 +35,7 @@ const compose = function(req, res) {
   };
 }
 
-const create = function(req, res) {
+const create = (req, res) => {
   if(req.isUnauthenticated()) {
       res.redirect("/")
   } else {
@@ -47,7 +47,7 @@ const create = function(req, res) {
     });   
     let errors = validationResult(req) 
     if(!errors.isEmpty()) {
-      errors = errors.array().map(function(obj) {
+      errors = errors.array().map((obj) => {
         return obj.msg
       });
       const flash = {error: errors}
@@ -59,7 +59,7 @@ const create = function(req, res) {
         id: post.id
       });  
     } else { 
-      post.save(function(err){
+      post.save((err) => {
         if (err) {
           req.flash('error', err.message); 
         } else {
@@ -71,10 +71,10 @@ const create = function(req, res) {
   };
 }
 
-const show = function(req, res) {
+const show = (req, res) => {
   if (req.isAuthenticated()){
     const requestedPostId = req.params.id;
-    Post.findOne({_id:requestedPostId}, function(err, post){
+    Post.findOne({_id:requestedPostId}, (err, post) => {
       console.log(post);
         res.render("posts/show", {
           title: _.capitalize(post.title),
@@ -90,10 +90,10 @@ const show = function(req, res) {
   };
 }
 
-const edit = function(req, res) {
+const edit = (req, res) => {
   if (req.isAuthenticated()){
     const requestedPostId = req.params.id;
-    Post.findOne({_id:requestedPostId}, function(err, post){
+    Post.findOne({_id:requestedPostId}, (err, post) => {
       res.render("posts/edit", {
         flash: {},
         title: post.title,
@@ -107,13 +107,13 @@ const edit = function(req, res) {
   };
 }
 
-const update = function(req, res) {
+const update = (req, res) => {
   if(req.isUnauthenticated()) {
     res.redirect("/")
   } else {
     let errors = validationResult(req) 
     if(!errors.isEmpty()) {
-      errors = errors.array().map(function(obj) {
+      errors = errors.array().map((obj) => {
         return obj.msg
       });
       const flash = {error: errors}
@@ -127,7 +127,7 @@ const update = function(req, res) {
     } else { 
       const filter = {_id: req.body.id};
       const updateAttributes = {title: req.body.title, content: req.body.content}
-      Post.findOneAndUpdate(filter, updateAttributes, function(err, post){
+      Post.findOneAndUpdate(filter, updateAttributes, (err, post) => {
         if (err){
           res.render("/posts/edit");
         } else {
@@ -139,10 +139,10 @@ const update = function(req, res) {
   }
 }
 
-const destroy = function(req, res) {
+const destroy = (req, res) => {
   if (req.isAuthenticated()){
     const requestedPostId = req.params.id;
-    Post.findByIdAndRemove({_id:requestedPostId}, function(err, post){
+    Post.findByIdAndRemove({_id:requestedPostId}, (err, post) => {
       if(!!err) {
         res.render("post", {
           title: post.title,

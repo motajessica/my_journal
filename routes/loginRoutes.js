@@ -9,7 +9,7 @@ router.get("/auth/google",
 );
 
 router.get("/auth/google/myjournal", passport.authenticate("google", { failureRedirect: "/" }),
-  function(req, res) {
+  (req, res) => {
     // Successful authentication, redirect home.
     res.redirect("/posts");
 });

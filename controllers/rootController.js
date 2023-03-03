@@ -1,6 +1,6 @@
 const express = require("express");
 
-const welcome = function(req, res){
+const welcome = (req, res) => {
   if (req.isAuthenticated()){
     res.redirect("/posts") 
   } else {
@@ -8,16 +8,16 @@ const welcome = function(req, res){
   }
 };
 
-const contact = function(req, res){
+const contact = (req, res) => {
   res.render("contact", {
-    isAuthenticated: req.isAuthenticated()
+  isAuthenticated: req.isAuthenticated()
   });
-};
- 
-const about = function(req, res){
+}
+
+const about = (req, res) => { 
   res.render("about", {
-    isAuthenticated: req.isAuthenticated()
+  isAuthenticated: req.isAuthenticated()
   });
-};
+}
 
 module.exports = {welcome, contact, about}
