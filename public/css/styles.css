@@ -14,6 +14,19 @@ label {
   color: #777777;
 }
 
+.link {
+  font-size: 1rem;
+  font-family:'Montserrat', sans-serif; 
+  text-decoration: none;
+  color: black;
+}
+
+.bluelink { 
+  font-size: 0.7rem;
+  font-family:'Montserrat', sans-serif; 
+  text-decoration: none;
+}
+
 .colored-section{
   background-color: #579BB1;
   color: #fff;
@@ -148,18 +161,6 @@ color: white ;
 }
 
 
-.link {
-  font-size: 1rem;
-  font-family:'Montserrat', sans-serif; 
-  text-decoration: none;
-  color: black;
-}
-
-.bluelink { 
-  font-size: 0.7rem;
-  font-family:'Montserrat', sans-serif; 
-  text-decoration: none;
-}
 
 .lastSeen {
   font-size: 11px ;
@@ -222,9 +223,3 @@ color: white ;
 .card-body { 
   background-color:#E1D7C6 ;
 }
-
-.general-text {
-  color: #7a858f;
-  font-size: 15px;
-}
-
