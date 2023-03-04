@@ -30,7 +30,7 @@ label {
     letter-spacing: 3px;
 }
 .navbar-nav  li a:hover {
-    color: #FF97C1 !important;
+    color: #579BB1 !important;
 }
 
 .navbar{
@@ -41,6 +41,7 @@ label {
   font-family: 'Ubuntu', sans-serif;
   font-size: 1.5rem;
   padding-left: 0%;
+  color: #6c757de8;
 }
 
 .nav-item{
@@ -182,10 +183,6 @@ color: white ;
   font-family:'Montserrat', sans-serif;
 }
 
-/* .card {
-  background-color: #EDEDED;
-} */
-
 .max-700 {
   max-width: 700px;
 }
@@ -219,15 +216,15 @@ color: white ;
 .welcome-img { 
   width: 95%;
   border-radius: 3%;
-  transform: rotate(6deg)
+  transform: rotate(6deg);
 }
 
 .card-body { 
   background-color:#E1D7C6 ;
 }
 
-.card-text {
-  color: #8a96a1;
+.general-text {
+  color: #7a858f;
   font-size: 15px;
 }
 
