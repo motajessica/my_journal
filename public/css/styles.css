@@ -1,4 +1,3 @@
-
 html {
   min-height: 100%;
   position: relative;
@@ -201,19 +200,26 @@ color: white ;
 .bg {
   background-color: #ECE8DD;
     padding-top: 70px;
-    padding-bottom: 70px;
+    padding-bottom: 140px;
+    padding-left: 70px;
+    padding-right: 70px;
 }
 
 .front-box {
-  
   background-color: #E1D7C6;
+  width: 85%;
 }
 
+.welcome {
+  padding: 0 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 
 .welcome-img { 
-  
-  width: 100%;
-  border-radius: 5%;
+  width: 95%;
+  border-radius: 3%;
+  transform: rotate(6deg)
 }
 
 .card-body { 
@@ -221,6 +227,7 @@ color: white ;
 }
 
 .card-text {
-  color: #4f5c6a;
+  color: #8a96a1;
   font-size: 15px;
 }
+
