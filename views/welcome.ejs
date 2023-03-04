@@ -1,77 +1,39 @@
 <%- include('partials/header') %>
 
 <section>
-  <div class="container py-5 white-section">
-    <h1 class="titles">CREATE YOUR OWN PERSONAL JOURNAL</h1>
-      <div class="d-flex flex-row justify-content-center">
-        <div class="col-sm-5">
-          <div class="card border-0">
-            <div class="card-body text-center">
-              <p class="card-text">Already have an account? </p>
-              <a class="btn mt-3 btn-app text-center" class="" href="/login">LOGIN</a>
+  <div class=" bg d-flex flex-row justify-content-center "> 
+  <div class="row py-15 front-box">
+    <div class="col-6">
+      <div class="front-box container py-5">
+        <h1 class="titles">Create your own personal Journal</h1>
+          <div class="d-flex flex-row justify-content-center">
+            <div class="col-sm-5">
+              <div class="card border-0">
+                <div class="card-body text-center">
+                  <p class="card-text">Already have an account? </p>
+                  <a class="btn mt-3 btn-app text-center" class="" href="/login">LOGIN</a>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="card border-0">
+              <div class="card-body text-center ">
+                <p class="card-text">Create an account today.</p>
+                <a class="btn mt-3 btn-app text-center" class=" "href="/register">REGISTER</a>
+              </div>
             </div>
           </div>
-       </div>
-      <div class="col-sm-5">
-        <div class="card border-0">
-          <div class="card-body text-center ">
-            <p class="card-text">Create an account today.</p>
-            <a class="btn mt-3 btn-app text-center" class=" "href="/register">REGISTER</a>
-          </div>
-        </div>
+        </div>  
+      </div>   
+    </div>
+    <div class = "col-6"> 
+      <div>
+        <div class="front-box container py-5">
+          <img class="welcome-img" src="/images/pexels-arina.jpg">
       </div>
-    </div>  
-  </div>   
-</section>
-
-<section class="colored-section" id="features">
-  <div class="row">
-    <div class="feature-box col-lg-4">
-      <i class="fas fa-check-circle fa-2x img-item mb-2"></i>
-      <h3 class="feature-title">Easy to use</h3>
-      <p>Intuive and simple to use.</p>
+        </div>
     </div>
-    <div class="feature-box col-lg-4" >
-      <i class="fas fa-star fa-2x img-item mb-2"></i>
-      <h3 class="feature-title">Pleasant interface</h3>
-      <p>A minimalist interface helps you focus on your thoughts.</p>
-    </div>
-    <div class="feature-box col-lg-4">
-      <i class="fas fa-heart fa-2x img-item mb-2"></i>
-      <h3 class="feature-title">Customized mood</h3>
-      <p>Captures your mood and activities for each day.</p>
-    </div>
+  </div>  
   </div>
 </section>
-
-<section class="white-section">
-   <div id="testimonial-carousel" class="carousel carousel-dark slide" data-ride="false">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <h6 class="testimonial-text">I have a busy routine and My Journal App helps me to slow down and connect to myself.</h2>
-        <img  class="testimonial-img" src="/images/antonia-img.png">
-        <em>Antonia, Estancia</em>
-      </div> -->
-      <div class="carousel-item">
-        <h6 class="testimonial-text">I have created an habit of describe what happens on my day and how I feel, this has been great to know myself better.</h2>
-        <img class="testimonial-img" src="/images/eleonor-img.png">
-        <em>Eleonor F, Macambira</em>
-      </div>
-      <div class="carousel-item">
-        <h6 class="testimonial-text">I used to feel sad often, but since I started using this app I can recognize better my feelings.</h2>
-        <img class="testimonial-img" src="/images/vicente-img.png">
-        <em>Caetano S, Penedo</em>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#testimonial-carousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#testimonial-carousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div> -->
-</section>
-
 <%- include('partials/footer') %>
