@@ -1,39 +1,30 @@
 <%- include('partials/header') %>
 
-<section>
-  <div class=" bg d-flex flex-row justify-content-center "> 
-  <div class="row py-15 front-box">
-    <div class="col-6">
-      <div class="front-box container py-5">
-        <h1 class="titles">Become a Daily Writer!</h1>
-          <div class="d-flex flex-row justify-content-center">
-            <div class="col-sm-5">
-              <div class="card border-0">
-                <div class="card-body text-center">
-                  <p class="general-text">Already have an account? </p>
-                  <a class="btn mt-3 btn-app text-center" class="" href="/login">LOGIN</a>
-                </div>
+<section class="bg-color">
+  <div class="container p-5">
+    <div class="row mt-2 py-5 card-bg-color radius-3percent">
+      <div class="col-12 col-md-6 d-flex flex-column justify-content-center mb-5 mb-md-0">
+          <div class="text-center mb-5">
+              <h2>Become a Daily Writer!</h2>
+          </div>
+          <div class="d-flex flex-row justify-content-around">
+              <div class="d-flex flex-column align-items-center">
+                  <p class="text-center">Already have an account? </p>
+                  <a class="btn cta-button" href="/login">Login</a>
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                  <p class="text-center">Create an account today.</p>
+                  <a class="btn cta-button" href="/register">Register</a>
               </div>
           </div>
-          <div class="col-sm-5">
-            <div class="card border-0">
-              <div class="card-body text-center ">
-                <p class="general-text">Create an account today.</p>
-                <a class="btn mt-3 btn-app text-center" class=" "href="/register">REGISTER</a>
-              </div>
-            </div>
-          </div>
-        </div>  
-      </div>   
-    </div>
-    <div class = "col-6"> 
-      <div>
-        <div class="front-box container py-5">
-          <img class="welcome-img" src="/images/pexels-arina.jpg">
       </div>
+
+      <div class = "col-12 col-md-6">
+        <div class="text-center">
+          <img class="welcome-img" src="/images/pexels-arina.jpg">
         </div>
+      </div>
     </div>
-  </div>  
   </div>
 </section>
 <%- include('partials/footer') %>
