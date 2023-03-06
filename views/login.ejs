@@ -1,34 +1,37 @@
 <%- include('partials/header') %>
-
-<div class="container mt-5 max-700">
-  <h1 class="titles" >LOGIN</h1>
-  <div class="row">
-    <div class="col-sm-8">
-      <div class="">
-        <div class="">
-          <%- include("partials/alerts") %> 
-          <!-- Makes POST request to /login route -->
-          <form action="/login" method="POST">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" name="username" placeholder="Email">
+<section class="bg-color content">
+  <div class="container">
+    <div class="max-700">
+      <h1 class="titles" >Login</h1>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="">
+            <div class="">
+              <%- include("partials/alerts") %>
+              <!-- Makes POST request to /login route -->
+              <form action="/login" method="POST">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="username" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <label class="mt-2" for="password">Password</label>
+                  <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn cta-button mt-3" >Register</button>
+              </form>
             </div>
-            <div class="form-group">
-              <label class="mt-2" for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn mt-3 btn-app">Login</button>
-          </form>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap mt-4 justify-content-between justify-content-md-start">
+          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+            <span class="fa-brands fa-google"></span>
+            Sign In with Google
+          </a>
         </div>
       </div>
     </div>
-    <div class="d-flex flex-wrap mt-4 justify-content-between justify-content-md-start">
-      <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-        <span class="fa-brands fa-google"></span>
-        Sign In with Google
-      </a> 
-    </div>  
   </div>
-</div>
+</section>
 
 <%- include('partials/footer') %>

@@ -1,14 +1,14 @@
 <%- include("../partials/header"); -%>
 
-<div class="mt-2 mb-5 container max-700">
+<div class="content max-700 mt-2 mb-5 container">
     <div class="row mb-2">
-        <div class="col d-flex justify-content-start">
-            <a class="bluelink" href="/new">+ Compose</a>
+        <div class="col d-flex justify-content-end">
+            <a class="btn cta-button" href="/new">+ Write</a>
         </div>
       </div> 
     <div class="row">
         <div class="col">
-            <h1 class="titles">My Posts</h1>
+            <h1 class="pb-4">My Posts</h1>
         </div>
     </div>
     <%- include("../partials/alerts") %> 
@@ -57,4 +57,5 @@
         </div>
     <% } %>
 </div>
-        
+
+<%- include('../partials/footer') %>
