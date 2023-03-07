@@ -3,7 +3,7 @@
 <div class="content max-700 mt-2 mb-5 container">
     <div class="row mb-2">
         <div class="col d-flex justify-content-end">
-            <a class="btn cta-button" href="/new">+ Write</a>
+            <a class="text-decoration-none" href="/new">+ Write</a>
         </div>
       </div> 
     <div class="row">
@@ -30,11 +30,11 @@
                             <h3><%= post.title %></h3>
                             <p>
                             <% if (post.content.length > 30) { %> 
-                                <%=post.content.substring(0,30) + " ...   " %>
-                                <a class="bluelink" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
+                                <%=post.content.substring(0,100) + " ...   " %>
+                                <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
                             <% } else { %>
                                 <%=post.content + " " %> 
-                                <a class="bluelink" href="/posts/<%=post._id%>"> 
+                                <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
                                     <i class="fa fa-eye"></i>
                                 </a>
                             <% } %>

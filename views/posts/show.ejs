@@ -1,26 +1,27 @@
 <%- include("../partials/header"); -%>
 
 <div class="content container max-700">
-  <div class="row d-lg-none mb-5">
-    <div class="col d-flex justify-content-start">
-        <a class="btn cta-button" href="/index">< Back to Home Page</a>
+  <div class="row d-lg-none mb-2">
+    <div class="col d-flex justify-content-end">
+        <a class="text-decoration-none" href="/posts">< Back to Home Page</a>
     </div>
   </div> 
   <%- include("../partials/alerts") %>
-  <div class="row ">
-    <div class="col">    
+
+    <div class="">    
       <h3>  <%=title%> </h3>
+      </p>
+      <p class="text-justify">
+        <%=content%>
+      </p>
       <p class="lastSeen text-muted small">Last edited: <%=new Date(updatedAt).toLocaleDateString("en-US", {
         weekday: "long",
         day: "numeric",
         month: "long", 
         time:"numeric"
-      })%></p>
-
-        <p class="text-justify"><%=content%></p>
-     
+      })%>
     </div>
-  </div>
+
   <div class="row">
     <div class="col">
       <div class=" gap-3 d-flex">

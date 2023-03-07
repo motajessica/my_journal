@@ -34,6 +34,10 @@ By using this approach, the footer will stay at the bottom of the viewport if th
 
 /**/
 
+p{
+  display: block;
+  word-wrap: break-word
+}
 
 input, textarea {
     background-color: #faf9f6 !important;
