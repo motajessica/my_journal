@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    background-color: #ECE8DD;
+    background-color: #eeece8;
 }
 
 .content {
@@ -40,11 +40,14 @@ input, textarea {
 }
 
 .bg-color {
-    background-color: #ECE8DD;
+    background-color: #eeece8;
 }
 
 .card-bg-color {
     background-color: #E1D7C6;
+}
+.card {
+  border: none;
 }
 
 .radius-3percent {
@@ -56,11 +59,11 @@ input, textarea {
 
 .footer {
     background-color: #579BB1;
-    color: #ECE8DD
+    color: #eeece8
 }
 
 .social-icon {
-    color: #ECE8DD;
+    color: #eeece8;
 }
 
 .welcome-img {
@@ -71,7 +74,7 @@ input, textarea {
 
 .cta-button {
    background-color: #579BB1;
-   color: #ECE8DD;
+   color: #eeece8;
 }
 
 .nav-link {
@@ -80,4 +83,8 @@ input, textarea {
 
 .navbar-brand {
     color: var(--bs-body-color);
+}
+
+.nav-item {
+  font-size: 14px;
 }
