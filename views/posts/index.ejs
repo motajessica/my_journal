@@ -1,14 +1,15 @@
 <%- include("../partials/header"); -%>
 
-<div class="mt-2 mb-5 container max-700">
+<div class="content max-700 mt-2 mb-5 container">
     <div class="row mb-2">
-        <div class="col d-flex justify-content-start">
-            <a class="bluelink" href="/new">+ Compose</a>
+        <div class="col d-flex justify-content-end">
+            <a class="text-decoration-none small" href="/new">+ Write</a>
         </div>
       </div> 
     <div class="row">
         <div class="col">
-            <h1 class="titles">My Posts</h1>
+            <h1 class="">My Posts</h1>
+            <hr>
         </div>
     </div>
     <%- include("../partials/alerts") %> 
@@ -17,17 +18,28 @@
             <div class="col empty-home justify-content-center" >
                 Your journal is empty. Add your daily notes           
                 <a class="link empty-home-link text-decoration-underline" href="/new"> 
-                   Here <i class="fa-solid fa-feather"></i> 
+                    Here <i class="fa-solid fa-feather"></i> 
                 </a>
             </div>
         </div>  
      <% }else { %>
-        <div class="row">
+        <div class="row pt-4 ">
             <div class="col">
-                <div>
-                    <% posts.forEach(function(post){ %>
+                <% posts.forEach(function(post){ %>
+                    <div class="mb-5">
                         <h3><%= post.title %></h3>
-                        <p class="lastSeen">
+                        <p>
+                        <% if (post.content.length > 100) { %> 
+                            <%=post.content.substring(0,100) + " ...   " %>
+                            <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
+                        <% } else { %>
+                            <%=post.content + " " %> 
+                            <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        <% } %>
+                        </p>
+                        <p class="text-muted small">
                             Last edited: 
                             <%= new Date(post.updatedAt).toLocaleDateString(
                                 "en-US", 
@@ -39,23 +51,11 @@
                                 }
                             )%>
                         </p>
-                        <p class="mb-5">
-                        <% if (post.content.length > 30) { %> 
-                            <%=post.content.substring(0,30) + " ...   " %>
-                            <a class="bluelink" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
-                       
-                        <% } else { %>
-                            <%=post.content + " " %> 
-                            <a class="bluelink" href="/posts/<%=post._id%>"> 
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        <% } %>
-                        </p>
-                    <% }) %>
-                </div>
+                    </div>
+                <% }) %>
             </div> 
         </div>
     <% } %>
 </div>
-        
-<%- include("../partials/footer"); -%>
+
+<%- include('../partials/footer') %>
