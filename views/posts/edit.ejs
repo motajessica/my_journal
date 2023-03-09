@@ -4,7 +4,7 @@
         <div class="col">
             <h1 class="titles">Edit Entry</h1>
             <%- include("../partials/alerts") %> 
-            <form class="new container" action="/posts/<%= id %>/update" method="POST">
+            <form class="new" action="/posts/<%= id %>/update" method="POST">
                 <%- include("formFields"); -%>
             </form>
         </div>
