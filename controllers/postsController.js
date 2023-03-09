@@ -150,6 +150,9 @@ const destroy = (req, res) => {
           isAuthenticated: req.isAuthenticated(),
         });
       } else {
+        
+        
+
         req.flash('success','Your message has been deleted!');
         return res.redirect("/posts")
       }
@@ -158,5 +161,10 @@ const destroy = (req, res) => {
     res.redirect("/");
   }
 }
+
+// if(confirm("Are you sure you want to Delete it?")){
+//   document.getElementById(id).submit();
+//  } 
+
 
 module.exports = {index, compose, create, show, edit, update, destroy} 
