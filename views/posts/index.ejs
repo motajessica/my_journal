@@ -29,8 +29,8 @@
                     <div class="mb-5">
                         <h3><%= post.title %></h3>
                         <p>
-                        <% if (post.content.length > 100) { %> 
-                            <%=post.content.substring(0,100) + " ...   " %>
+                        <% if (post.content.length > 140) { %> 
+                            <%=post.content.substring(0,140) + " ...   " %>
                             <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
                         <% } else { %>
                             <%=post.content + " " %> 
