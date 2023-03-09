@@ -28,17 +28,6 @@
                 <% posts.forEach(function(post){ %>
                     <div class="mb-5">
                         <h3><%= post.title %></h3>
-                        <p>
-                        <% if (post.content.length > 140) { %> 
-                            <%=post.content.substring(0,140) + " ...   " %>
-                            <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
-                        <% } else { %>
-                            <%=post.content + " " %> 
-                            <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        <% } %>
-                        </p>
                         <p class="text-muted small">
                             Last edited: 
                             <%= new Date(post.updatedAt).toLocaleDateString(
@@ -50,6 +39,17 @@
                                     hour: "numeric",
                                 }
                             )%>
+                        </p>
+                        <p>
+                        <% if (post.content.length > 140) { %> 
+                            <%=post.content.substring(0,140) + " ...   " %>
+                            <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
+                        <% } else { %>
+                            <%=post.content + " " %> 
+                            <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
+                              <i class="fa fa-eye"></i>
+                            </a>
+                        <% } %>
                         </p>
                     </div>
                 <% }) %>
