@@ -39,6 +39,11 @@ p{
   word-wrap: break-word
 }
 
+h1 {
+  color: #579BB1;
+  font-weight: bold;
+}
+
 input, textarea {
     background-color: #faf9f6 !important;
 }
@@ -87,6 +92,8 @@ input, textarea {
 
 .navbar-brand {
     color: var(--bs-body-color);
+    font-weight: lighter;
+    
 }
 
 .nav-item {

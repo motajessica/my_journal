@@ -3,7 +3,7 @@
 <div class="content max-700 mt-2 mb-5 container">
     <div class="row mb-2">
         <div class="col d-flex justify-content-end">
-            <a class="text-decoration-none" href="/new">+ Write</a>
+            <a class="text-decoration-none small" href="/new">+ Write</a>
         </div>
       </div> 
     <div class="row">
@@ -18,42 +18,41 @@
             <div class="col empty-home justify-content-center" >
                 Your journal is empty. Add your daily notes           
                 <a class="link empty-home-link text-decoration-underline" href="/new"> 
-                   Here <i class="fa-solid fa-feather"></i> 
+                    Here <i class="fa-solid fa-feather"></i> 
                 </a>
             </div>
         </div>  
      <% }else { %>
         <div class="row pt-4 ">
             <div class="col">
-                    <% posts.forEach(function(post){ %>
-                        <div class="mb-5">
-                            <h3><%= post.title %></h3>
-                            <p>
-                            <% if (post.content.length > 30) { %> 
-                                <%=post.content.substring(0,100) + " ...   " %>
-                                <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
-                            <% } else { %>
-                                <%=post.content + " " %> 
-                                <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                            <% } %>
-                            </p>
-                            <p class="text-muted small">
-                                Last edited: 
-                                <%= new Date(post.updatedAt).toLocaleDateString(
-                                    "en-US", 
-                                    {weekday: "long",
-                                        day: "numeric",
-                                        month: "long", 
-                                        year: "numeric",
-                                        hour: "numeric",
-                                    }
-                                )%>
-                            </p>
-                        </div>
-                    <% }) %>
-               
+                <% posts.forEach(function(post){ %>
+                    <div class="mb-5">
+                        <h3><%= post.title %></h3>
+                        <p>
+                        <% if (post.content.length > 100) { %> 
+                            <%=post.content.substring(0,100) + " ...   " %>
+                            <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
+                        <% } else { %>
+                            <%=post.content + " " %> 
+                            <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        <% } %>
+                        </p>
+                        <p class="text-muted small">
+                            Last edited: 
+                            <%= new Date(post.updatedAt).toLocaleDateString(
+                                "en-US", 
+                                {weekday: "long",
+                                    day: "numeric",
+                                    month: "long", 
+                                    year: "numeric",
+                                    hour: "numeric",
+                                }
+                            )%>
+                        </p>
+                    </div>
+                <% }) %>
             </div> 
         </div>
     <% } %>
