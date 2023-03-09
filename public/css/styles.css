@@ -18,6 +18,14 @@ body {
     flex: 1;
 }
 
+.link{
+  color: #579BB1 ;
+}
+.link:hover {
+  color:#3d7487;
+  text-decoration: underline;
+}
+
 .footer {
     flex-shrink: 0;
 }

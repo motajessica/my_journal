@@ -3,7 +3,7 @@
 <div class="content max-700 mt-2 mb-5 container">
     <div class="row mb-2">
         <div class="col d-flex justify-content-end">
-            <a class="text-decoration-none small" href="/new">+ Write</a>
+            <a class="text-decoration-none small link" href="/new">+ Write</a>
         </div>
       </div> 
     <div class="row">
@@ -43,10 +43,10 @@
                         <p>
                         <% if (post.content.length > 140) { %> 
                             <%=post.content.substring(0,140) + " ...   " %>
-                            <a class="text-decoration-none" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
+                            <a class=" link" href="/posts/<%=post._id%>">Read more <i class="fa fa-eye"></i></a>
                         <% } else { %>
                             <%=post.content + " " %> 
-                            <a class="text-decoration-none" href="/posts/<%=post._id%>"> 
+                            <a class="link" href="/posts/<%=post._id%>"> 
                               <i class="fa fa-eye"></i>
                             </a>
                         <% } %>
