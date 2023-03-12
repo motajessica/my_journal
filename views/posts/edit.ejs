@@ -1,13 +1,14 @@
 <%- include("../partials/header"); -%>
 <div class="container content max-700">
-    <div class="row mb-2">
-        <div class="col">
-            <h1 class="titles">Edit Entry</h1>
-            <%- include("../partials/alerts") %> 
-            <form class="new" action="/posts/<%= id %>/update" method="POST">
-                <%- include("formFields"); -%>
-            </form>
-        </div>
+  <div class="row mb-2">
+    <div class="col">
+        <h1 class="titles">Edit Entry</h1>
+        <%- include("../partials/alerts") %> 
+        <form class="new" action="/posts/<%= id %>/update" method="POST">
+            <%- include("formFields"); -%>
+        </form>
     </div>
+  </div>
 </div>
+
 <%- include("../partials/footer"); -%>
