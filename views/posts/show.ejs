@@ -3,7 +3,7 @@
 <div class="content container max-700">
   <div class="row d-lg-none mb-2">
     <div class="col d-flex justify-content-end">
-        <a class="text-decoration-none small " href="/posts">< Back to Home Page</a>
+        <a class="text-decoration-none link small " href="/posts">< Back to Home Page</a>
     </div>
   </div> 
   <%- include("../partials/alerts") %>
@@ -26,7 +26,7 @@
     <div class="col">
       <div class=" gap-3 d-flex">
         <form action="/posts/<%= id %>" method="post">
-          <button value="delete" confirm="Are you sure?" class="btn btn-sm btn-danger " type="submit"> 
+          <button onclick="return confirm('Are you sure you want to delete it?')"  confirm="Are you sure?" class="btn btn-sm btn-danger " type="submit"> 
             <i class="fa-solid fa-trash"></i> Delete 
           </button>
         </form>
