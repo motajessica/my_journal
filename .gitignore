@@ -1,0 +1,4 @@
+.env
+.DS_STORE
+public/.DS_Store
+views/.DS_Store
