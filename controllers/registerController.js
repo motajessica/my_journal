@@ -19,7 +19,12 @@ const createRegister =  async (req, res)=> {
     User.register({username: req.body.username}, req.body.password, (err, user) => {
       const errors = validationResult(req) 
       if(!errors.isEmpty()) {
-        const flash = {error: errors.array()}
+        const errorsArray = errors.array().map((obj) => {
+          return obj.msg
+        }); 
+
+        const flash = {error: errorsArray} 
+      
         res.render('register', {flash, isAuthenticated: false, form: req.body});
       } else {
         passport.authenticate("local")(req, res, () => {
